@@ -2,7 +2,7 @@ OUTPUT_DIR := "$(CURDIR)/bin"
 BINARY_NAME := awesome_toilet_backend
 
 # 默认目标
-all: clean build run
+all: clean build
 
 # 构建目标：仅针对 linux/amd64 平台
 build:
