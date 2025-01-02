@@ -1,0 +1,94 @@
+server:
+  port: 8081
+damao:
+  jwt:
+    adminSecretKey: damaoz
+    adminTtl: 86400000 # 1day
+    adminTokenName: token
+  mail:
+    host: smtp.qq.com
+    username: 3034906016@qq.com
+    password: hqdaqjmofxhodfic
+spring:
+  application:
+    name: main-application
+
+  output:
+    ansi:
+      enabled: ALWAYS # enable color print
+  main:
+    allow-circular-references: true
+
+
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 400MB
+  mail:
+    port: 465
+    host: smtp.qq.com
+    username: 3034906016@qq.com
+    password: hqdaqjmofxhodfic
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
+  redis:
+    host: 62.234.48.195
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1
+    timeout: 5000
+    database: 0
+    password: 1231Hh5867
+  rabbitmq:
+    host: 62.234.48.195
+    port: 5672
+    username: damao
+    password: 1231h5867
+    virtual-host: /
+    connection-timeout: 15000
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+          multiplier: 1.5
+          max-interval: 10000
+  datasource:
+    druid:
+      login-timeout: 30000
+    dynamic:
+      primary: mysql
+      datasource:
+        mysql:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/xxx?serverTimezone=UTC
+          username:
+          password:
+        sqlite:
+          url: jdbc:sqlite:data.db
+          driver-class-name: org.sqlite.JDBC
+
+mybatis-plus:
+
+  mapper-locations: classpath*:com/damao/mapper/*.xml, classpath*:mapper/*.xml
+  type-aliases-package: com.damao.pojo.entity
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    com:
+      damao:
+        mapper: debug
+        service: info
+        controller: info
