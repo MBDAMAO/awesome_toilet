@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8089
 damao:
   jwt:
     adminSecretKey: damaoz
@@ -9,6 +9,7 @@ damao:
     host: smtp.qq.com
     username: 3034906016@qq.com
     password: hqdaqjmofxhodfic
+
 spring:
   application:
     name: main-application
@@ -65,19 +66,10 @@ spring:
           multiplier: 1.5
           max-interval: 10000
   datasource:
-    druid:
-      login-timeout: 30000
-    dynamic:
-      primary: mysql
-      datasource:
-        mysql:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/xxx?serverTimezone=UTC
-          username:
-          password:
-        sqlite:
-          url: jdbc:sqlite:data.db
-          driver-class-name: org.sqlite.JDBC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.53.88.192:13306/awesome_toilet?serverTimezone=UTC
+    username: damao
+    password: 1321h5867
 
 mybatis-plus:
 

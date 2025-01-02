@@ -1,7 +1,9 @@
 package com.damao.common.exception.user;
 
-public class AccountNotFoundException extends RuntimeException {
-  public AccountNotFoundException(String message) {
-    super(message);
-  }
+import com.damao.common.exception.BaseException;
+
+public class AccountNotFoundException extends BaseException {
+    public AccountNotFoundException(String message) {
+        super(message);
+    }
 }
