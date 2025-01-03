@@ -1,0 +1,13 @@
+html[theme='dark'] {
+  --text-color: #000;
+  --bg1: #fafbfc;
+  --bg2: #eee;
+  --ripple-color: rgba(83, 83, 83, 0.6);
+}
+
+:root {
+  --text-color: #fff;
+  --bg1: #292c34;
+  --bg2: #21252b;
+  --ripple-color: rgba(255, 255, 255, 0.6);
+}

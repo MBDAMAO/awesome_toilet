@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Toilet
     id          INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(50),
     location    VARCHAR(20),
+    status      INT,
+    description VARCHAR(200),
     create_time TIMESTAMP,
     update_time TIMESTAMP
 );
@@ -63,6 +65,32 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Device
     update_time TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Environment_Data
+(
+    id                INT AUTO_INCREMENT PRIMARY KEY,
+    toilet            INT,
+    temperature       FLOAT,
+    humidity          FLOAT,
+    paper_usage       INT,
+    electricity_usage FLOAT,
+    free_1            varchar(20),
+    free_2            varchar(20),
+    free_3            varchar(20),
+    free_4            varchar(20),
+    free_5            varchar(20),
+    free_6            varchar(20),
+    free_7            varchar(20),
+    free_8            varchar(20),
+    free_9            varchar(20),
+    free_10           varchar(20),
+    free_11           varchar(20),
+    free_12           varchar(20),
+    free_13           varchar(20),
+    free_14           varchar(20),
+    free_15           varchar(20),
+    create_time       TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Device_Binding
 (
     id     INT AUTO_INCREMENT PRIMARY KEY,
@@ -75,6 +103,7 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Traffic
     id             INT AUTO_INCREMENT PRIMARY KEY,
     toilet         INT NOT NULL,
     pit            INT NOT NULL,
+    device         INT NOT NULL,
     TotalVisitors  INT,
     MaleVisitors   INT,
     FemaleVisitors INT,
@@ -83,16 +112,22 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Traffic
 
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Toilet_Area
 (
-    id     INT AUTO_INCREMENT PRIMARY KEY,
-    toilet INT         NOT NULL,
-    name   VARCHAR(20) NOT NULL
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    toilet      INT         NOT NULL,
+    name        VARCHAR(20) NOT NULL,
+    description VARCHAR(200),
+    create_time TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Pit
 (
-    id     INT AUTO_INCREMENT PRIMARY KEY,
-    toilet INT NOT NULL,
-    status INT
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    toilet      INT NOT NULL,
+    type        INT,
+    coordinates VARCHAR(20),
+    description VARCHAR(200),
+    status      INT,
+    create_time TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Comment
@@ -107,8 +142,8 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Comment
 
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Message
 (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user INT,
-    message VARCHAR(500),
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    user        INT,
+    message     VARCHAR(500),
     create_time TIMESTAMP
 );
