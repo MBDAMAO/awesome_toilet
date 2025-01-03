@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full w-full">
+    <div class="h-full w-full overflow-y-hidden">
         <HeaderLayout>
             <template #head>
 

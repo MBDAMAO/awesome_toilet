@@ -25,6 +25,16 @@ const router = createRouter({
           component: () => import('@/views/device/index.vue'),
         },
         {
+          path: 'toilet',
+          name: 'toilet',
+          component: () => import('@/views/toilet/index.vue'),
+        },
+        {
+          path: 'message',
+          name: 'message',
+          component: () => import('@/views/message/index.vue'),
+        },
+        {
           path: 'user',
           name: 'user',
           children: [
