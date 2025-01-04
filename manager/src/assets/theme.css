@@ -1,6 +1,13 @@
 :root {
-  --text-color: #000;
-  --bg1: #fafbfc;
-  --bg2: #eee;
-  --ripple-color: rgba(83, 83, 83, 0.6);
+  --dm-text-color: #000;
+  --dm-bg1: #fafbfc;
+  --dm-bg2: #eee;
+  --dm-ripple-color: rgba(83, 83, 83, 0.6);
+}
+
+html.dark {
+  --dm-text-color: #fff;
+  --dm-bg1: #000000;
+  --dm-bg2: #303030;
+  --dm-ripple-color: rgba(255, 255, 255, 0.6);
 }

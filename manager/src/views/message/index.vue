@@ -1,19 +1,21 @@
 <template>
-    <Title :title="'消息列表'"> <el-checkbox v-model="checked">仅显示未读</el-checkbox></Title>
+    <div class="w-full h-full flex flex-col">
+        <Title :title="'消息列表'"> <el-checkbox v-model="checked">仅显示未读</el-checkbox></Title>
 
-    <Container class="flex items-center justify-center flex-col" v-loading="loading">
-        <el-empty description="无内容" v-if="!hasContent" />
-        <div class="max-h-[600px] w-full overflow-auto flex flex-col p-2" v-if="hasContent">
-            <Container class="mt-2 mb-2 cursor-pointer" v-for="item in messages">
-                <MessageTip :item="item" />
-            </Container>
-        </div>
-        <div class="w-full mt-2">
-            <el-pagination v-model:current-page="currentPage1" :page-size="100" :size="size" :disabled="disabled"
-                :background="background" layout="total, prev, pager, next, jumper" :total="1000"
-                @size-change="handleSizeChange" @current-change="handleCurrentChange" />
-        </div>
-    </Container>
+        <Container class="flex items-center justify-center flex-col h-[90%]" v-loading="loading">
+            <el-empty description="无内容" v-if="!hasContent" />
+            <div class="max-h-[100%] w-full overflow-auto flex flex-col p-2" v-if="hasContent">
+                <Container class="mt-2 mb-2 cursor-pointer" v-for="item in messages">
+                    <MessageTip :item="item" />
+                </Container>
+            </div>
+            <div class="w-full mt-2">
+                <el-pagination v-model:current-page="currentPage1" :page-size="100" :size="size" :disabled="disabled"
+                    :background="background" layout="total, prev, pager, next, jumper" :total="1000"
+                    @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+            </div>
+        </Container>
+    </div>
 </template>
 <script setup lang='ts'>
 import Container from '@/components/container/index.vue'

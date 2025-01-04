@@ -91,6 +91,7 @@
                     </el-icon>
                     <span>地图显示</span>
                 </template>
+                <el-menu-item index="/root/map">地图显示</el-menu-item>
             </el-sub-menu>
         </el-menu>
     </div>
@@ -108,4 +109,8 @@ const handleClose = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }
 </script>
-<style scoped></style>
+<style scoped>
+::-webkit-scrollbar {
+    display: none;
+}
+</style>

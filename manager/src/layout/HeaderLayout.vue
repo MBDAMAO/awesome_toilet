@@ -18,10 +18,6 @@
 <script setup lang='ts'>
 </script>
 <style scoped>
-.el-container {
-    height: 100vh;
-}
-
 .el-header {
     padding: 0;
     height: 50px;
@@ -30,9 +26,11 @@
 .el-aside {
     padding: 0;
     width: auto;
+    height: calc(100vh - 50px);
 }
 
 .el-main {
     padding: 16px;
+    height: calc(100vh - 50px);
 }
 </style>

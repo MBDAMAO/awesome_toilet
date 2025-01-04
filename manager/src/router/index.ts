@@ -30,6 +30,11 @@ const router = createRouter({
           component: () => import('@/views/toilet/index.vue'),
         },
         {
+          path: 'map',
+          name: 'map',
+          component: () => import('@/views/map/index.vue'),
+        },
+        {
           path: 'message',
           name: 'message',
           component: () => import('@/views/message/index.vue'),

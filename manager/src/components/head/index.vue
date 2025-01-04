@@ -35,10 +35,11 @@
 <script setup lang='ts'>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 const isDark = ref(false)
 function changeTheme() {
-    document.documentElement.dataset.theme = isDark.value ? 'dark' : 'light';
+    document.documentElement.setAttribute('class', isDark.value ? 'dark' : 'light');
 }
 function openNewTab(url: string) {
     window.open(url, '_blank');
