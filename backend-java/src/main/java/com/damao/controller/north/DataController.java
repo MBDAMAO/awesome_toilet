@@ -2,11 +2,13 @@ package com.damao.controller.north;
 
 import com.damao.common.result.Result;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/data")
+@RestController
+@RequestMapping("/data")
 public class DataController {
-    @GetMapping("dashboard")
+    @GetMapping("/dashboard")
     public Result<?> getDashboardData() {
         return null;
     }

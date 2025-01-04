@@ -8,30 +8,32 @@ import com.damao.pojo.entity.Device;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/device")
+@RestController
+@RequestMapping("/device")
 public class DeviceController {
 
     @Autowired
     DeviceMapper deviceMapper;
 
-    @GetMapping("info")
+    @GetMapping("/info")
     public Result<?> getDeviceInfo(Integer id) {
         return null;
     }
 
-    @PostMapping("new")
+    @PostMapping("/new")
     public Result<?> addDevice(Integer id) {
         return null;
     }
 
-    @GetMapping("list")
+    @GetMapping("/list")
     public Result<PageResult<?>> getDeviceList(Integer id) {
         QueryWrapper<Device> wrapper = new QueryWrapper<>();
-        wrapper.eq()
+//        wrapper.eq();
         List<Device> deviceList = deviceMapper.selectList(wrapper);
         System.out.println(deviceList);
         return null;

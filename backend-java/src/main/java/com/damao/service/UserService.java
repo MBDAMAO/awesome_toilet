@@ -1,7 +1,14 @@
 package com.damao.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.damao.common.exception.user.AccountNotFoundException;
+import com.damao.mapper.UserAuthMapper;
+import com.damao.mapper.UserMapper;
+import com.damao.pojo.dto.user.UserLoginDTO;
 import com.damao.pojo.entity.User;
+import com.damao.pojo.entity.UserAuth;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -15,43 +22,46 @@ import java.util.Objects;
  */
 @Service
 public class UserService {
-    public User login(UserLoginDTO userLoginDTO) {
+
+    @Autowired
+    UserAuthMapper userAuthMapper;
+
+    public UserAuth login(UserLoginDTO userLoginDTO) {
         String password = userLoginDTO.getPassword();
-        String username = userLoginDTO.getUsername();
-        User user = userMapper.getByUsername(username);
-        if (user == null) {
+        String account = userLoginDTO.getAccount();
+        QueryWrapper<UserAuth> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("account", account);
+        UserAuth userAuth = userAuthMapper.selectOne(queryWrapper);
+        if (userAuth == null) {
             throw new AccountNotFoundException("账号或密码错误");
         }
-        if (!Objects.equals(DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8)), user.getPassword())) {
-            throw new PasswordErrorException("账号或密码错误");
+        if (!Objects.equals(password, userAuth.getPassword())) {
+            throw new AccountNotFoundException("账号或密码错误");
         }
-        if (user.getStatus() == 0) {
-            throw new UserStatusErrorException("用户状态不正常");
-        }
-        return user;
+        return userAuth;
     }
 
-    public User registry(UserRegistryDTO userRegistryDTO) {
-        String username = userRegistryDTO.getUsername();
-        User user = userMapper.getByUsername(username);
-        if (user != null) {
-            throw new UserAlreadyExistsException("用户名已存在");
-        }
-        User newUser = new User();
-
-        BeanUtils.copyProperties(userRegistryDTO, newUser);
-        newUser.setAvatar("default png");
-        String password = userRegistryDTO.getPassword();
-        String newPassword = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
-        newUser.setPassword(newPassword);
-        userMapper.insert(newUser);
-        BaseContext.setCurrentId(newUser.getUid());
-        // 成功插入后再发邮件
-        String email = userRegistryDTO.getEmail();
-        SendEmailDTO send = new SendEmailDTO();
-        send.setEmail(email);
-        send.setUid(newUser.getUid());
-        rabbitTemplate.convertAndSend(RabbitMQConstant.EXCHANGE, "123", send);
-        return newUser;
-    }
+//    public User registry(UserRegistryDTO userRegistryDTO) {
+//        String username = userRegistryDTO.getUsername();
+//        User user = userMapper.getByUsername(username);
+//        if (user != null) {
+//            throw new UserAlreadyExistsException("用户名已存在");
+//        }
+//        User newUser = new User();
+//
+//        BeanUtils.copyProperties(userRegistryDTO, newUser);
+//        newUser.setAvatar("default png");
+//        String password = userRegistryDTO.getPassword();
+//        String newPassword = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
+//        newUser.setPassword(newPassword);
+//        userMapper.insert(newUser);
+//        BaseContext.setCurrentId(newUser.getUid());
+//        // 成功插入后再发邮件
+//        String email = userRegistryDTO.getEmail();
+//        SendEmailDTO send = new SendEmailDTO();
+//        send.setEmail(email);
+//        send.setUid(newUser.getUid());
+//        rabbitTemplate.convertAndSend(RabbitMQConstant.EXCHANGE, "123", send);
+//        return newUser;
+//    }
 }

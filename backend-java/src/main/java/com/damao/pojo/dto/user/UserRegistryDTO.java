@@ -9,7 +9,4 @@ import java.util.Date;
 public class UserRegistryDTO implements Serializable {
     private String username;
     private String password;
-    private Date birthday;
-    private String sex;
-    private String email;
 }
