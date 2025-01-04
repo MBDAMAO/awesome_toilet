@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full p-[32px] bg-[--bg1]" style="box-shadow: var(--el-box-shadow-lighter);">
+    <div class="p-[32px] bg-[--bg1]" style="box-shadow: var(--el-box-shadow-lighter);">
         <slot></slot>
     </div>
 </template>

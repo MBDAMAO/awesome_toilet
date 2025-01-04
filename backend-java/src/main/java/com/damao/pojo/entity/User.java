@@ -16,5 +16,8 @@ public class User extends BaseEntity implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long uid;
     private String name;
+    private String account;
     private String email;
+    private Long createTime;
+    private Long updateTime;
 }

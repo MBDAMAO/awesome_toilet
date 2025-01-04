@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Role
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Toilet
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
+    owner       INT,
     name        VARCHAR(50),
     location    VARCHAR(20),
     status      INT,
@@ -58,8 +59,10 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Alarm
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Device
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
+    owner       INT,
     name        VARCHAR(20),
     description VARCHAR(200),
+    toilet      INT,
     status      INT,
     create_time TIMESTAMP,
     update_time TIMESTAMP
@@ -89,13 +92,6 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Environment_Data
     free_14           varchar(20),
     free_15           varchar(20),
     create_time       TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Device_Binding
-(
-    id     INT AUTO_INCREMENT PRIMARY KEY,
-    device INT,
-    toilet INT
 );
 
 CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Traffic
@@ -145,5 +141,6 @@ CREATE TABLE IF NOT EXISTS AWESOME_TOILET.Message
     id          INT AUTO_INCREMENT PRIMARY KEY,
     user        INT,
     message     VARCHAR(500),
+    is_read     BOOLEAN,
     create_time TIMESTAMP
 );

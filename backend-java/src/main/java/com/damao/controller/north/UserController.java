@@ -1,24 +1,35 @@
 package com.damao.controller.north;
 
+import com.damao.common.properties.JwtProperties;
 import com.damao.common.result.Result;
+import com.damao.common.utils.JwtUtil;
+import com.damao.pojo.dto.user.UserLoginDTO;
+import com.damao.pojo.dto.user.UserRegistryDTO;
+import com.damao.pojo.entity.User;
+import com.damao.pojo.vo.user.UserLoginVO;
+import com.damao.pojo.vo.user.UserRegistryVO;
 import com.damao.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author damao
- * @version 1.0
- * Create by 2024/11/10 下午12:44
- */
+import java.util.HashMap;
+import java.util.Map;
+
+@Slf4j
 @RestController("/user")
 public class UserController {
     private final UserService userService;
+    private final JwtProperties jwtProperties;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, JwtProperties jwtProperties) {
         this.userService = userService;
+        this.jwtProperties = jwtProperties;
     }
 
     @GetMapping("info")
@@ -31,13 +42,46 @@ public class UserController {
         return null;
     }
 
-    @PostMapping("login")
-    public Result<?> login(String username, String password) {
-        return null;
+    @PostMapping("/login")
+    public Result<?> login(@RequestBody @Validated UserLoginDTO userLoginDTO) {
+        log.info("用户登录(●'◡'●){}", userLoginDTO.getUsername());
+        User user = userService.login(userLoginDTO);
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("user_id", user.getUid());
+        String token = JwtUtil.createJWT(
+                jwtProperties.getAdminSecretKey(),
+                jwtProperties.getAdminTtl(),
+                claims);
+
+        UserLoginVO userLoginVO = UserLoginVO.builder()
+                .uid(user.getUid())
+                .userName(user.getName())
+                .token(token)
+                .build();
+
+        return Result.success(userLoginVO, "登录成功");
     }
 
-    @PostMapping("register")
-    public Result<?> register(Integer id, String name, String password) {
-        return null;
+    @PostMapping("/registry")
+    public Result<?> registry(@RequestBody @Validated UserRegistryDTO userRegistryDTO) {
+        log.info("用户注册(●'◡'●){}", userRegistryDTO.getEmail());
+        User user = userService.registry(userRegistryDTO);
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("user_id", user.getUid());
+
+        String token = JwtUtil.createJWT(
+                jwtProperties.getAdminSecretKey(),
+                jwtProperties.getAdminTtl(),
+                claims);
+
+        UserRegistryVO userRegistryVO = UserRegistryVO.builder()
+                .token(token)
+                .uid(user.getUid())
+                .userName(user.getName())
+                .build();
+
+        return Result.success(userRegistryVO, "注册成功");
     }
 }

@@ -103,10 +103,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 const isCollapse = ref(false)
 const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
 }
 </script>
 <style scoped>

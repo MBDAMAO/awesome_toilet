@@ -33,11 +33,11 @@
     </div>
 </template>
 <script setup lang='ts'>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router'
+import { useDark } from "@vueuse/core";
 
 const router = useRouter()
-const isDark = ref(false)
+const isDark = useDark()
 function changeTheme() {
     document.documentElement.setAttribute('class', isDark.value ? 'dark' : 'light');
 }

@@ -10,12 +10,14 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Alarm extends BaseEntity implements Serializable {
+public class Traffic extends BaseEntity implements Serializable {
     @TableId()
     private Long id;
-    private Integer type;
     private Long toilet;
+    private Long pit;
     private Long device;
-    private String message;
-    private Long createTime;
+    private Integer totalVisitors;
+    private Integer maleVisitors;
+    private Integer femaleVisitors;
+    private Long timestamp;
 }

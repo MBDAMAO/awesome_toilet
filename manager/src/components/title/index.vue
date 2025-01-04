@@ -10,7 +10,6 @@ defineProps({ title: String })
 <style scoped>
 .title {
     font-size: 18px;
-    color: rgba(0, 0, 0, .85);
     margin-right: 10px;
 }
 
