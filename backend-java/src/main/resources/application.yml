@@ -12,7 +12,7 @@ damao:
 
 spring:
   application:
-    name: main-application
+    name: toilet
 
   output:
     ansi:

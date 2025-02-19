@@ -6,55 +6,21 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>com.damao</groupId>
     <artifactId>backend</artifactId>
     <version>1.0.0</version>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+
     <properties>
         <java.version>21</java.version>
-        <spring-modulith.version>1.2.4</spring-modulith.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.modulith</groupId>-->
-<!--            <artifactId>spring-modulith-starter-core</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-docker-compose</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -70,22 +36,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.modulith</groupId>-->
-<!--            <artifactId>spring-modulith-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.security</groupId>-->
-<!--            <artifactId>spring-security-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-        <!-- SQLite JDBC Driver -->
-<!--        <dependency>-->
-<!--            <groupId>org.xerial</groupId>-->
-<!--            <artifactId>sqlite-jdbc</artifactId>-->
-<!--            <version>3.41.2.2</version> &lt;!&ndash; Use the latest version &ndash;&gt;-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -96,7 +46,7 @@
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <version>3.5.9</version>
         </dependency>
-        <!-- mysql JDBC Driver -->
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -139,19 +89,6 @@
             <version>1.1.1</version>
         </dependency>
     </dependencies>
-    <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
-
-    <dependencyManagement>
-<!--        <dependencies>-->
-<!--            <dependency>-->
-<!--                <groupId>org.springframework.modulith</groupId>-->
-<!--                <artifactId>spring-modulith-bom</artifactId>-->
-<!--                <version>${spring-modulith.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
-<!--        </dependencies>-->
-    </dependencyManagement>
 
     <build>
         <plugins>
