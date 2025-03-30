@@ -4,7 +4,7 @@ const router = createRouter({
   routes: [
     {
       path: '',
-      redirect: '/page/login',
+      redirect: '/root',
     },
     {
       path: '/root',
@@ -18,6 +18,11 @@ const router = createRouter({
           path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/dashboard/index.vue'),
+        },
+        {
+          path: 'water',
+          name: 'water',
+          component: () => import('@/views/data_stat/water/index.vue'),
         },
         {
           path: 'device',
@@ -38,6 +43,11 @@ const router = createRouter({
           path: 'message',
           name: 'message',
           component: () => import('@/views/message/index.vue'),
+        },
+        {
+          path: 'editor',
+          name: 'editor',
+          component: () => import('@/views/toilet_editor/index.vue'),
         },
         {
           path: 'user',
@@ -74,6 +84,17 @@ const router = createRouter({
       ],
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('token')
+  const requiresAuth = to.meta.requiresAuth
+
+  if (requiresAuth && !isAuthenticated) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
 })
 
 export default router

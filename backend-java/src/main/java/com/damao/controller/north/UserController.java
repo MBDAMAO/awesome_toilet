@@ -3,7 +3,9 @@ package com.damao.controller.north;
 import com.damao.common.properties.JwtProperties;
 import com.damao.common.result.Result;
 import com.damao.common.utils.JwtUtil;
+import com.damao.mapper.UserMapper;
 import com.damao.pojo.dto.user.UserLoginDTO;
+import com.damao.pojo.entity.User;
 import com.damao.pojo.entity.UserAuth;
 import com.damao.pojo.vo.user.UserLoginVO;
 import com.damao.service.UserService;
@@ -19,6 +21,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    UserMapper userMapper;
+
     private final UserService userService;
     private final JwtProperties jwtProperties;
 
@@ -30,7 +36,8 @@ public class UserController {
 
     @GetMapping("/info")
     public Result<?> getUserInfo(Integer id) {
-        return null;
+        User user = userMapper.selectById(id);
+        return Result.success(user);
     }
 
     @PostMapping("/update")

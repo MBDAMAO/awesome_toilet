@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -17,5 +18,5 @@ public class Comment extends BaseEntity implements Serializable {
     private Long area;
     private String suggestion;
     private Integer type;
-    private Long createTime;
+    private LocalDateTime createTime;
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,5 +17,5 @@ public class ToiletArea extends BaseEntity implements Serializable {
     private Long toilet;
     private String name;
     private String description;
-    private Long createTime;
+    private LocalDateTime createTime;
 }

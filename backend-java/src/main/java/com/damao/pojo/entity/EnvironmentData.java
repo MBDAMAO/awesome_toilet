@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -18,7 +19,7 @@ public class EnvironmentData extends BaseEntity implements Serializable {
     private Float humidity;
     private Integer paperUsage;
     private Float electricityUsage;
-    private Long createTime;
+    private LocalDateTime createTime;
     private String free1;
     private String free2;
     private String free3;

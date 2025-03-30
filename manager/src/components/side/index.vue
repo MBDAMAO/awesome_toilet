@@ -69,7 +69,7 @@
                     <span>数据统计</span>
                 </template>
                 <el-menu-item index="7-1" @click="router.push('/root/message')">客流量</el-menu-item>
-                <el-menu-item index="7-2" @click="router.push('/root/message')">用水量</el-menu-item>
+                <el-menu-item index="/root/water">用水量</el-menu-item>
                 <el-menu-item index="7-3" @click="router.push('/root/message')">用电量</el-menu-item>
                 <el-menu-item index="7-4" @click="router.push('/root/message')">用纸量</el-menu-item>
                 <el-menu-item index="7-5" @click="router.push('/root/message')">警报统计</el-menu-item>
@@ -83,6 +83,7 @@
                     <span>工具</span>
                 </template>
                 <el-menu-item index="8-1" @click="router.push('/root/message')">设备测试</el-menu-item>
+                <el-menu-item index="/root/editor">厕所户型编辑</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="9">
                 <template #title>

@@ -32,9 +32,19 @@ const router = createRouter({
           component: () => import('@/views/login/index.vue'),
         },
         {
+          path: 'questionnaire',
+          name: 'questionnaire',
+          component: () => import('@/views/questionnaire/index.vue'),
+        },
+        {
           path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/dashboard/index.vue'),
+        },
+        {
+          path: 'room',
+          name: 'room',
+          component: () => import('@/views/toilet_room/index.vue'),
         },
       ],
     },

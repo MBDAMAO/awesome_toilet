@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.3.1",
     "axios": "^1.7.9",
     "dashboard": "file:",
@@ -23,6 +24,7 @@
     "element-plus": "^2.9.1",
     "pinia": "^2.2.6",
     "vue": "^3.5.12",
+    "vue-echarts": "^7.0.3",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {

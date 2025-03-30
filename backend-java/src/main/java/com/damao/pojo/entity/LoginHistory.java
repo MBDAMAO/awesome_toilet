@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -16,5 +17,5 @@ public class LoginHistory extends BaseEntity implements Serializable {
     private String ipAddress;
     private String location;
     private String platform;
-    private Long time;
+    private LocalDateTime time;
 }

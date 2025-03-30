@@ -17,4 +17,9 @@ public class PageResult<T> implements Serializable {
     private Long page;
     private HashMap<String, Object> params;
     private List<T> records;
+
+    public PageResult(List<T> records, long total) {
+        this.records = records;
+        this.total = total;
+    }
 }

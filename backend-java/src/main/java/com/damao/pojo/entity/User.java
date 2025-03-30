@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -18,6 +19,6 @@ public class User extends BaseEntity implements Serializable {
     private String name;
     private String account;
     private String email;
-    private Long createTime;
-    private Long updateTime;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -21,6 +22,9 @@ public class Toilet extends BaseEntity implements Serializable {
     private String location;
     private Integer status;
     private String description;
-    private Long createTime;
-    private Long updateTime;
+    private String designMap;
+    private Integer devices;
+    private Integer pits;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

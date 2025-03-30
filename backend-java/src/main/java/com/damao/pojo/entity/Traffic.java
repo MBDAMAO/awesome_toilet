@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -19,5 +20,5 @@ public class Traffic extends BaseEntity implements Serializable {
     private Integer totalVisitors;
     private Integer maleVisitors;
     private Integer femaleVisitors;
-    private Long timestamp;
+    private LocalDateTime timestamp;
 }
