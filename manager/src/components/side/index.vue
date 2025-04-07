@@ -49,8 +49,8 @@
                     </el-icon>
                     <span>告警设置</span>
                 </template>
-                <el-menu-item index="/root/device">告警管理</el-menu-item>
-                <el-menu-item index="/root/device">消息推送</el-menu-item>
+                <el-menu-item index="/root/alarm_settings">告警管理</el-menu-item>
+                <el-menu-item index="/root/msg_push_settings">消息推送</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="6">
                 <template #title>
@@ -68,12 +68,12 @@
                     </el-icon>
                     <span>数据统计</span>
                 </template>
-                <el-menu-item index="7-1" @click="router.push('/root/message')">客流量</el-menu-item>
+                <el-menu-item index="/root/people">客流量</el-menu-item>
                 <el-menu-item index="/root/water">用水量</el-menu-item>
-                <el-menu-item index="7-3" @click="router.push('/root/message')">用电量</el-menu-item>
-                <el-menu-item index="7-4" @click="router.push('/root/message')">用纸量</el-menu-item>
-                <el-menu-item index="7-5" @click="router.push('/root/message')">警报统计</el-menu-item>
-                <el-menu-item index="7-6" @click="router.push('/root/message')">满意度统计</el-menu-item>
+                <el-menu-item index="/root/elect">用电量</el-menu-item>
+                <el-menu-item index="/root/paper">用纸量</el-menu-item>
+                <el-menu-item index="/root/alarm">警报统计</el-menu-item>
+                <el-menu-item index="/root/satify">满意度统计</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="8">
                 <template #title>
@@ -82,7 +82,7 @@
                     </el-icon>
                     <span>工具</span>
                 </template>
-                <el-menu-item index="8-1" @click="router.push('/root/message')">设备测试</el-menu-item>
+                <el-menu-item index="/root/device_test">设备测试</el-menu-item>
                 <el-menu-item index="/root/editor">厕所户型编辑</el-menu-item>
             </el-sub-menu>
             <el-sub-menu index="9">

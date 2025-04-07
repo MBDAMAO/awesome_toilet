@@ -54,7 +54,7 @@
         </div>
     </Container>
 </template>
-<script setup lang='js'>
+<script setup lang='ts'>
 import { useDark } from "@vueuse/core";
 import Container from "@/components/container/index.vue";
 import { onMounted, ref, watch } from "vue";
@@ -66,21 +66,21 @@ window._AMapSecurityConfig = {
 const isDark = useDark();
 const loading = ref(true);
 let map = null;
-let occupy = ref([
+const occupy = ref([
 
 ])
-let today_people = ref([
+const today_people = ref([
 
 ])
-let resUsage = ref([
+const resUsage = ref([
 
 ])
-let envData = ref([
+const envData = ref([
 
 ])
 onMounted(() => {
     getMapPageData().then((res) => {
-        let data = res.data;
+        const data = res.data;
         occupy.value = data.occupy;
         today_people.value = [data.today_people];
         resUsage.value = data.res_usage;
@@ -100,15 +100,15 @@ onMounted(() => {
         }
         map = new AMap.Map("map", { zoom: 16, center: [104.097532, 30.674544], mapStyle: style });
         AMap.plugin("AMap.DistrictSearch", function () {
-            var district = new AMap.DistrictSearch({
+            const district = new AMap.DistrictSearch({
                 extensions: "all",
                 level: "district",
             });
             district.search("成华区", function (status, result) {
-                var bounds = result.districtList[0].boundaries;
+                const bounds = result.districtList[0].boundaries;
                 if (bounds) {
-                    for (var i = 0; i < bounds.length; i++) {
-                        var polygon = new AMap.Polygon({
+                    for (let i = 0; i < bounds.length; i++) {
+                        const polygon = new AMap.Polygon({
                             map: map, //显示该覆盖物的地图对象
                             strokeWeight: 1, //轮廓线宽度
                             path: bounds[i], //多边形轮廓线的节点坐标数组

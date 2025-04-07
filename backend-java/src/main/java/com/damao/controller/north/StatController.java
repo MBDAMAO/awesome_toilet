@@ -1,0 +1,79 @@
+package com.damao.controller.north;
+
+import com.damao.common.result.Result;
+import com.damao.mapper.stat.ElectricityUsageDailyMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/stat")
+public class StatController {
+    @Autowired
+    private ElectricityUsageDailyMapper electricityUsageMapper;
+
+    @GetMapping("/electricity-usage-stats")
+    public Result<Map<String, Object>> getElectricityUsageStats() {
+        LocalDate today = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
+
+        // 今日
+        LocalDateTime todayStart = today.atStartOfDay();
+        LocalDateTime todayEnd = today.atTime(LocalTime.MAX);
+
+        // 昨日
+        LocalDateTime yesterdayStart = todayStart.minusDays(1);
+        LocalDateTime yesterdayEnd = todayEnd.minusDays(1);
+
+        // 最近七天（包含今日）
+        LocalDate sevenDaysAgo = today.minusDays(6);
+        LocalDateTime lastSevenDaysStart = sevenDaysAgo.atStartOfDay();
+
+        // 本周（从周一开始）
+        LocalDateTime thisWeekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY)).atStartOfDay();
+        LocalDateTime thisWeekEnd = now;
+
+        // 上周（从周一开始到周日结束）
+        LocalDateTime lastWeekStart = thisWeekStart.minusWeeks(1);
+        LocalDateTime lastWeekEnd = thisWeekStart.minusSeconds(1);
+
+        // 获取统计数据
+        List<Map<String, Object>> lastSevenDaysUsage = electricityUsageMapper.getDailyElectricityUsage(lastSevenDaysStart, todayEnd);
+        Long todayUsage = electricityUsageMapper.getTotalElectricityUsage(todayStart, todayEnd);
+        Long yesterdayUsage = electricityUsageMapper.getTotalElectricityUsage(yesterdayStart, yesterdayEnd);
+        Long thisWeekUsage = electricityUsageMapper.getTotalElectricityUsage(thisWeekStart, thisWeekEnd);
+        Long lastWeekUsage = electricityUsageMapper.getTotalElectricityUsage(lastWeekStart, lastWeekEnd);
+
+        // 组织返回结果
+        if (todayUsage == null) {
+            todayUsage = 0L;
+        }
+        if (yesterdayUsage == null) {
+            yesterdayUsage = 0L;
+        }
+        if (thisWeekUsage == null) {
+            thisWeekUsage = 0L;
+        }
+        if (lastWeekUsage == null) {
+            lastWeekUsage = 0L;
+        }
+        Map<String, Object> usageStats = new HashMap<>();
+        usageStats.put("lastSevenDaysUsage", lastSevenDaysUsage);
+        usageStats.put("todayUsage", todayUsage);
+        usageStats.put("yesterdayUsage", yesterdayUsage);
+        usageStats.put("thisWeekUsage", thisWeekUsage);
+        usageStats.put("lastWeekUsage", lastWeekUsage);
+        usageStats.put("unit", "kWh");
+
+        return Result.success(usageStats);
+    }
+}
