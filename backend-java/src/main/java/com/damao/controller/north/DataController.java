@@ -1,8 +1,10 @@
 package com.damao.controller.north;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.damao.common.result.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +20,10 @@ public class DataController {
 
     @GetMapping("/overview")
     public Result<?> getOverviewData() {
-        Map res = ToiletDataHashMap.buildDashboard();
+        Map<?, ?> res = ToiletDataHashMap.buildDashboard();
         return Result.success(res);
     }
 }
-
 
 
 class ToiletDataHashMap {
