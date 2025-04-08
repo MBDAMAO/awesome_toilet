@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.damao.common.result.Result;
+import com.damao.mapper.EnvDataMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/data")
 public class DataController {
+
+    @Autowired
+    EnvDataMapper envDataMapper;
+
     @GetMapping("/dashboard")
     public Result<?> getDashboardData() {
         return null;

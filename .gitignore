@@ -8,4 +8,10 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+
+.idea
+.vscode
+.DS_Store
+*.sublime-project
+*.sublime-workspace
 # End of https://www.toptal.com/developers/gitignore/api/vuejs

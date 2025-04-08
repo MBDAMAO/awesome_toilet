@@ -17,7 +17,6 @@ public class Traffic extends BaseEntity implements Serializable {
     private Long toilet;
     private Long pit;
     private Long device;
-    private Integer totalVisitors;
     private Integer maleVisitors;
     private Integer femaleVisitors;
     private LocalDateTime timestamp;

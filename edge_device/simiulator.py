@@ -1,126 +1,108 @@
-import requests
+import paho.mqtt.client as mqtt
 import time
+import json
 import random
-import uuid
-import logging
 from datetime import datetime
-from typing import Dict, Any
 
-# 基础配置
-BASE_URL = "http://your-api-domain.com/api"
-ENV_ENDPOINT = f"{BASE_URL}/south/data/env"
-TRAFFIC_ENDPOINT = f"{BASE_URL}/south/data/traffic"
-REGISTER_ENDPOINT = f"{BASE_URL}/south/device/register"  # 需要实现设备注册接口
+# MQTT 配置
+MQTT_BROKER = "120.53.88.192"
+MQTT_PORT = 1883
+CLIENT_ID = f"python-mqtt-{random.randint(0, 1000)}"
+DEVICE_ID = "gateway-001"
+MQTT_TOPIC = "test/topic"  # 所有数据统一发送到此 topic
+USERNAME = "damao"
+PASSWORD = "1231h5867"
 
-# 初始化日志
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger("IoTDevice")
-
-
-class IoTDevice:
-    def __init__(self):
-        self.device_id = None
-        self.location = None  # 设备安装位置
-        self.last_people_count = 0
-        self.is_registered = False
-
-    def register_device(self):
-        """设备注册逻辑（需要后端实现对应接口）"""
-        try:
-            payload = {
-                "deviceSn": str(uuid.uuid4()),
-                "deviceType": "TOILET_SENSOR_V2",
-                "installLocation": "3F_WEST",
-                "installTime": datetime.now().isoformat()
-            }
-            response = requests.post(REGISTER_ENDPOINT, json=payload)
-            if response.status_code == 200:
-                data = response.json()
-                self.device_id = data['deviceId']
-                self.location = data['installLocation']
-                self.is_registered = True
-                logger.info(f"Device registered successfully. ID: {self.device_id}")
-            else:
-                logger.error(f"Registration failed: {response.text}")
-        except Exception as e:
-            logger.error(f"Registration error: {str(e)}")
-
-    def generate_env_data(self) -> Dict[str, Any]:
-        """生成环境监测数据"""
-        return {
-            "deviceId": self.device_id,
-            "temp": round(random.uniform(18.0, 30.0), 1),  # 温度(℃)
-            "humidity": random.randint(40, 80),  # 湿度(%)
-            "nh3": round(random.uniform(0, 10.0), 2),  # 氨气浓度(ppm)
-            "h2s": round(random.uniform(0, 5.0), 2),  # 硫化氢浓度(ppm)
-            "pm25": random.randint(0, 100),  # PM2.5
-            "battery": random.randint(20, 100),  # 电池电量(%)
-            "timestamp": datetime.now().isoformat()
+# 模拟环境数据（env）
+def generate_env_data():
+    return {
+        "deviceId": DEVICE_ID,
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "type": "env",
+        "data": {
+            "temperature": round(random.uniform(18.0, 30.0), 2),
+            "humidity": round(random.uniform(30.0, 70.0), 2),
+            "ammonia": round(random.uniform(0.1, 5.0), 2),
+            "pm2d5": round(random.uniform(5, 50), 1),
+            "pm10": round(random.uniform(10, 100), 1),
+            "pressure": round(random.uniform(950, 1050), 2),
+            "h2s": round(random.uniform(0.1, 5.0), 2),
+            "co2": round(random.uniform(350, 800), 1),
+            "tvoc": round(random.uniform(0.1, 1.0), 2)
         }
+    }
 
-    def generate_traffic_data(self) -> Dict[str, Any]:
-        """生成人流量数据"""
-        # 模拟递增计数，偶尔重置
-        self.last_people_count += random.randint(0, 2)
-        if random.random() < 0.1:
-            self.last_people_count = 0
-
-        return {
-            "deviceId": self.device_id,
-            "peopleCount": self.last_people_count,
-            "doorStatus": random.choice(["OPEN", "CLOSED"]),
-            "emergencyAlert": random.random() < 0.02,  # 2%概率触发紧急报警
-            "timestamp": datetime.now().isoformat()
+# 模拟人流数据（flow）
+def generate_flow_data():
+    return {
+        "deviceId": DEVICE_ID,
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "type": "flow",
+        "data": {
+            "femaleVisitors": random.randint(0, 3),
+            "maleVisitors": random.randint(0, 3)
         }
+    }
 
-    def send_data(self, endpoint: str, data: dict):
-        """发送数据到指定端点"""
-        try:
-            response = requests.post(
-                url=endpoint,
-                json=data,
-                timeout=5
-            )
-            if not response.ok:
-                logger.warning(f"Send data failed: {response.status_code} - {response.text}")
-            else:
-                logger.debug(f"Data sent successfully: {data}")
-        except Exception as e:
-            logger.error(f"Connection error: {str(e)}")
+# 模拟能耗数据（energy）
+def generate_energy_data():
+    return {
+        "deviceId": DEVICE_ID,
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "type": "energy",
+        "data": {
+            "electricityUsage": round(random.uniform(0.01, 0.5), 2),  # kWh
+            "waterUsage": round(random.uniform(0.5, 5.0), 2),          # 升
+            "paperUsage": round(random.uniform(0.5, 5.0), 2)          # 升
+        }
+    }
 
+# MQTT 回调函数
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("✅ 成功连接到MQTT服务器")
+    else:
+        print(f"❌ 连接失败，返回码: {rc}")
+
+def on_publish(client, userdata, mid):
+    print(f"📤 消息已发布 (ID: {mid})")
+
+def publish_data(client, data):
+    payload = json.dumps(data)
+    result = client.publish(MQTT_TOPIC, payload, qos=1)
+    if result.rc == mqtt.MQTT_ERR_SUCCESS:
+        print(f"✔️ 发送到 {MQTT_TOPIC}: {payload}")
+    else:
+        print(f"❌ 发送失败: {mqtt.error_string(result.rc)}")
 
 def main():
-    # 初始化设备
-    device = IoTDevice()
+    client = mqtt.Client(client_id=CLIENT_ID)
+    client.username_pw_set(USERNAME, PASSWORD)  # 设置用户名和密码
+    client.on_connect = on_connect
+    client.on_publish = on_publish
 
-    # 设备注册（需要先实现注册接口）
-    # device.register_device()
+    client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    client.loop_start()
 
-    # 如果暂时不需要注册，使用模拟ID
-    device.device_id = "DEV_0001"
-    device.location = "3F_WEST_TOILET"
+    try:
+        count = 0
+        while True:
+            if count % 2 == 0:
+                publish_data(client, generate_env_data())
 
-    # 主循环
-    while True:
-        try:
-            # 每5秒发送环境数据
-            env_data = device.generate_env_data()
-            device.send_data(ENV_ENDPOINT, env_data)
+            if count % 6 == 0:
+                publish_data(client, generate_flow_data())
 
-            # 每60秒发送人流量数据
-            if int(time.time()) % 60 == 0:
-                traffic_data = device.generate_traffic_data()
-                device.send_data(TRAFFIC_ENDPOINT, traffic_data)
+            if count % 12 == 0:
+                publish_data(client, generate_energy_data())
 
             time.sleep(5)
+            count += 1
 
-        except KeyboardInterrupt:
-            logger.info("Device simulator stopped")
-            break
-
+    except KeyboardInterrupt:
+        print("⛔️ 模拟终止，断开连接")
+        client.disconnect()
+        client.loop_stop()
 
 if __name__ == "__main__":
     main()

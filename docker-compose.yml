@@ -1,51 +1,30 @@
-version: '3'
+version: "3.8"
+
 services:
+  backend:
+    build:
+      context: ./backend-java
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: backend-service
+
   manager:
     build:
       context: ./manager
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
-    volumes:
-      - ./manager:/app
-    working_dir: /app
-    command: [ "npm", "run", "serve" ]
-    environment:
-      - NODE_ENV=production
+      - "8081:80"
+    container_name: manager-frontend
+    depends_on:
+      - backend
 
   dashboard:
     build:
       context: ./dashboard
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"
-    volumes:
-      - ./dashboard:/app
-    working_dir: /app
-    command: [ "npm", "run", "serve" ]
-    environment:
-      - NODE_ENV=production
+      - "8082:80"
+    container_name: dashboard-frontend
     depends_on:
       - backend
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "8083:8083"
-      - "8082:8082"
-    volumes:
-      - ./backend:/app
-      - ./logs:/var/log
-    working_dir: /app
-    command: [ "go", "run", "main.go" ]
-    environment:
-      - GO_ENV=production
-      - LOG_FILE_PATH=/var/log/myapp.log # Set the log file location
-    networks:
-      - awesome-toilet-network
-
-networks:
-  awesome-toilet-network:
-    driver: bridge

@@ -14,6 +14,13 @@ spring:
   application:
     name: toilet
 
+  mqtt:
+    broker-url: tcp://120.53.88.192:1883
+    username: damao
+    password: 1231h5867
+    client-id: spring-mqtt-client0
+    default-topic: test/topic
+
   output:
     ansi:
       enabled: ALWAYS # enable color print
@@ -84,3 +91,6 @@ logging:
         mapper: debug
         service: info
         controller: info
+
+
+
