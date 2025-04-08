@@ -3,18 +3,21 @@ package com.damao.mqtt;
 import com.alibaba.fastjson2.JSON;
 import com.damao.mapper.DeviceMapper;
 import com.damao.mapper.EnvDataMapper;
+import com.damao.pojo.entity.Alarm;
 import com.damao.pojo.entity.Device;
 import com.damao.pojo.entity.EnvironmentData;
 import com.damao.pojo.entity.Traffic;
 import com.damao.pojo.entity.stat.ElectricityUsageDaily;
 import com.damao.pojo.entity.stat.PaperUsageDaily;
 import com.damao.pojo.entity.stat.WaterUsageDaily;
+import com.damao.service.AlarmService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 
 
 @Service
@@ -25,6 +28,9 @@ public class MqttMessageService {
     private DeviceMapper deviceMapper;
     @Autowired
     private EnvDataMapper envDataMapper;
+
+    @Autowired
+    private AlarmService alarmService;
 
     /**
      * {
@@ -68,14 +74,24 @@ public class MqttMessageService {
 
         Long user = device.getOwner();
         Long toilet = device.getToilet();
+        Map<String, Object> dataMap = data.getData();
 
         EnvironmentData environmentData = new EnvironmentData();
-        BeanUtils.copyProperties(data.getData(), environmentData);
-
+        environmentData.setTemperature(Float.parseFloat(dataMap.get("temperature").toString()));
+        environmentData.setHumidity(Float.parseFloat(dataMap.get("humidity").toString()));
+        environmentData.setAmmonia(Float.parseFloat(dataMap.get("ammonia").toString()));
+        environmentData.setPm2d5(Float.parseFloat(dataMap.get("pm2d5").toString()));
+        environmentData.setPm10(Float.parseFloat(dataMap.get("pm10").toString()));
+        environmentData.setPressure(Float.parseFloat(dataMap.get("pressure").toString()));
+        environmentData.setH2s(Float.parseFloat(dataMap.get("h2s").toString()));
+        environmentData.setCo2(Float.parseFloat(dataMap.get("co2").toString()));
+        environmentData.setTvoc(Float.parseFloat(dataMap.get("tvoc").toString()));
         environmentData.setTimestamp(data.getTimestamp());
         environmentData.setToilet(toilet);
         environmentData.setUser(user);
         envDataMapper.insert(environmentData);
+
+        alarmService.postAlarmCheck(environmentData);
     }
 
     private void handleEnergyMessage(MqttMessage data) {

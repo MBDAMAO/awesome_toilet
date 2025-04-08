@@ -1,5 +1,6 @@
 package com.damao.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Alarm extends BaseEntity implements Serializable {
-    @TableId()
+    @TableId(type = IdType.AUTO)
     private Long id;
     private Integer type;
     private Long toilet;

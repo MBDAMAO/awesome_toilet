@@ -8,7 +8,7 @@ from datetime import datetime
 MQTT_BROKER = "120.53.88.192"
 MQTT_PORT = 1883
 CLIENT_ID = f"python-mqtt-{random.randint(0, 1000)}"
-DEVICE_ID = "gateway-001"
+DEVICE_ID = "1"
 MQTT_TOPIC = "test/topic"  # 所有数据统一发送到此 topic
 USERNAME = "damao"
 PASSWORD = "1231h5867"
@@ -16,7 +16,7 @@ PASSWORD = "1231h5867"
 # 模拟环境数据（env）
 def generate_env_data():
     return {
-        "deviceId": DEVICE_ID,
+        "device": DEVICE_ID,
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "type": "env",
         "data": {
@@ -35,7 +35,7 @@ def generate_env_data():
 # 模拟人流数据（flow）
 def generate_flow_data():
     return {
-        "deviceId": DEVICE_ID,
+        "device": DEVICE_ID,
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "type": "flow",
         "data": {
@@ -47,7 +47,7 @@ def generate_flow_data():
 # 模拟能耗数据（energy）
 def generate_energy_data():
     return {
-        "deviceId": DEVICE_ID,
+        "device": DEVICE_ID,
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "type": "energy",
         "data": {
