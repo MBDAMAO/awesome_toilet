@@ -1,5 +1,5 @@
 # 使用 Maven 3.8.5 和 OpenJDK 21 构建阶段
-FROM maven-openjdk21 AS builder
+FROM maven AS builder
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
