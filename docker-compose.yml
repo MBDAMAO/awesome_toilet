@@ -27,4 +27,4 @@ services:
       - "8082:80"
     container_name: dashboard-frontend
     depends_on:
-      - backend
+      - manager
