@@ -77,26 +77,26 @@ VALUES (1, '设备1', '这是设备1的描述', 1, 1, NOW(), NOW()),
        (8, '设备8', '这是设备8的描述', 8, 1, NOW(), NOW());
 
 -- 环境数据表（Environment_Data）
-INSERT INTO AWESOME_TOILET.Environment_Data (toilet, temperature, humidity, paper_usage, electricity_usage, create_time)
-VALUES (1, 25.5, 60.0, 100, 5.5, NOW()),
-       (2, 26.0, 65.0, 120, 6.0, NOW() - INTERVAL 1 HOUR),
-       (3, 24.5, 55.0, 90, 5.0, NOW() - INTERVAL 2 HOUR),
-       (4, 27.0, 70.0, 110, 7.0, NOW() - INTERVAL 3 HOUR),
-       (5, 23.5, 50.0, 80, 4.5, NOW() - INTERVAL 4 HOUR),
-       (6, 28.0, 75.0, 130, 8.0, NOW() - INTERVAL 5 HOUR),
-       (7, 22.5, 45.0, 70, 4.0, NOW() - INTERVAL 6 HOUR),
-       (8, 29.0, 80.0, 140, 9.0, NOW() - INTERVAL 7 HOUR);
+# INSERT INTO AWESOME_TOILET.Environment_Data (toilet, temperature, humidity, paper_usage, electricity_usage, create_time)
+# VALUES (1, 25.5, 60.0, 100, 5.5, NOW()),
+#        (2, 26.0, 65.0, 120, 6.0, NOW() - INTERVAL 1 HOUR),
+#        (3, 24.5, 55.0, 90, 5.0, NOW() - INTERVAL 2 HOUR),
+#        (4, 27.0, 70.0, 110, 7.0, NOW() - INTERVAL 3 HOUR),
+#        (5, 23.5, 50.0, 80, 4.5, NOW() - INTERVAL 4 HOUR),
+#        (6, 28.0, 75.0, 130, 8.0, NOW() - INTERVAL 5 HOUR),
+#        (7, 22.5, 45.0, 70, 4.0, NOW() - INTERVAL 6 HOUR),
+#        (8, 29.0, 80.0, 140, 9.0, NOW() - INTERVAL 7 HOUR);
 
 -- 流量表（Traffic）
-INSERT INTO AWESOME_TOILET.Traffic (toilet, pit, device, TotalVisitors, MaleVisitors, FemaleVisitors, Timestamp)
-VALUES (1, 1, 1, 100, 60, 40, NOW()),
-       (2, 2, 2, 120, 70, 50, NOW() - INTERVAL 1 HOUR),
-       (3, 3, 3, 90, 50, 40, NOW() - INTERVAL 2 HOUR),
-       (4, 4, 4, 130, 80, 50, NOW() - INTERVAL 3 HOUR),
-       (5, 5, 5, 110, 65, 45, NOW() - INTERVAL 4 HOUR),
-       (6, 6, 6, 140, 90, 50, NOW() - INTERVAL 5 HOUR),
-       (7, 7, 7, 105, 60, 45, NOW() - INTERVAL 6 HOUR),
-       (8, 8, 8, 150, 95, 55, NOW() - INTERVAL 7 HOUR);
+# INSERT INTO AWESOME_TOILET.Traffic (toilet, pit, device, TotalVisitors, MaleVisitors, FemaleVisitors, Timestamp)
+# VALUES (1, 1, 1, 100, 60, 40, NOW()),
+#        (2, 2, 2, 120, 70, 50, NOW() - INTERVAL 1 HOUR),
+#        (3, 3, 3, 90, 50, 40, NOW() - INTERVAL 2 HOUR),
+#        (4, 4, 4, 130, 80, 50, NOW() - INTERVAL 3 HOUR),
+#        (5, 5, 5, 110, 65, 45, NOW() - INTERVAL 4 HOUR),
+#        (6, 6, 6, 140, 90, 50, NOW() - INTERVAL 5 HOUR),
+#        (7, 7, 7, 105, 60, 45, NOW() - INTERVAL 6 HOUR),
+#        (8, 8, 8, 150, 95, 55, NOW() - INTERVAL 7 HOUR);
 
 -- 厕所区域表（Toilet_Area）
 INSERT INTO AWESOME_TOILET.Toilet_Area (toilet, name, description, create_time)

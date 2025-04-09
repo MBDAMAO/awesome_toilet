@@ -48,23 +48,23 @@ public class StatController {
 
         // 获取统计数据
         List<Map<String, Object>> lastSevenDaysUsage = electricityUsageMapper.getDailyElectricityUsage(lastSevenDaysStart, todayEnd);
-        Long todayUsage = electricityUsageMapper.getTotalElectricityUsage(todayStart, todayEnd);
-        Long yesterdayUsage = electricityUsageMapper.getTotalElectricityUsage(yesterdayStart, yesterdayEnd);
-        Long thisWeekUsage = electricityUsageMapper.getTotalElectricityUsage(thisWeekStart, thisWeekEnd);
-        Long lastWeekUsage = electricityUsageMapper.getTotalElectricityUsage(lastWeekStart, lastWeekEnd);
+        Float todayUsage = electricityUsageMapper.getTotalElectricityUsage(todayStart, todayEnd);
+        Float yesterdayUsage = electricityUsageMapper.getTotalElectricityUsage(yesterdayStart, yesterdayEnd);
+        Float thisWeekUsage = electricityUsageMapper.getTotalElectricityUsage(thisWeekStart, thisWeekEnd);
+        Float lastWeekUsage = electricityUsageMapper.getTotalElectricityUsage(lastWeekStart, lastWeekEnd);
 
         // 组织返回结果
         if (todayUsage == null) {
-            todayUsage = 0L;
+            todayUsage = 0F;
         }
         if (yesterdayUsage == null) {
-            yesterdayUsage = 0L;
+            yesterdayUsage = 0F;
         }
         if (thisWeekUsage == null) {
-            thisWeekUsage = 0L;
+            thisWeekUsage = 0F;
         }
         if (lastWeekUsage == null) {
-            lastWeekUsage = 0L;
+            lastWeekUsage = 0F;
         }
         Map<String, Object> usageStats = new HashMap<>();
         usageStats.put("lastSevenDaysUsage", lastSevenDaysUsage);

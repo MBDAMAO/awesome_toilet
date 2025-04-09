@@ -26,5 +26,5 @@ public interface ElectricityUsageDailyMapper extends BaseMapper<ElectricityUsage
 
     @Select("SELECT SUM(electricity_usage) FROM electricity_usage_daily " +
             "WHERE timestamp BETWEEN #{start} AND #{end}")
-    Long getTotalElectricityUsage(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+    Float getTotalElectricityUsage(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
 }

@@ -1,5 +1,7 @@
 package com.damao.pojo.entity.stat;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,10 +14,11 @@ import java.time.LocalDateTime;
  */
 @Data
 public class WaterUsageDaily implements Serializable {
+    @TableId(type = IdType.AUTO)
     private Long id;
     private Long user;
     private Long toilet;
-    private Long waterUsage;
+    private Float waterUsage;
     private Long device;
     private LocalDateTime timestamp;
 }

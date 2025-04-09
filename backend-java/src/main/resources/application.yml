@@ -74,7 +74,7 @@ spring:
           max-interval: 10000
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://120.53.88.192:13306/awesome_toilet?serverTimezone=UTC
+    url: jdbc:mysql://120.53.88.192:13308/awesome_toilet?serverTimezone=UTC
     username: damao
     password: 1231h5867
 

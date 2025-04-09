@@ -3,6 +3,7 @@ package com.damao.mqtt;
 import com.alibaba.fastjson2.JSON;
 import com.damao.mapper.DeviceMapper;
 import com.damao.mapper.EnvDataMapper;
+import com.damao.mapper.stat.ElectricityUsageDailyMapper;
 import com.damao.pojo.entity.Alarm;
 import com.damao.pojo.entity.Device;
 import com.damao.pojo.entity.EnvironmentData;
@@ -28,6 +29,8 @@ public class MqttMessageService {
     private DeviceMapper deviceMapper;
     @Autowired
     private EnvDataMapper envDataMapper;
+    @Autowired
+    private ElectricityUsageDailyMapper electricityUsageDailyMapper;
 
     @Autowired
     private AlarmService alarmService;
@@ -100,10 +103,27 @@ public class MqttMessageService {
 
         Long user = device.getOwner();
         Long toilet = device.getToilet();
+        Map<String, Object> dataMap = data.getData();
 
         ElectricityUsageDaily electricityUsageDaily = new ElectricityUsageDaily();
+        electricityUsageDaily.setUser(user);
+        electricityUsageDaily.setToilet(toilet);
+        electricityUsageDaily.setTimestamp(data.getTimestamp());
+        electricityUsageDaily.setElectricityUsage(Float.parseFloat(dataMap.get("electricityUsage").toString()));
+        electricityUsageDailyMapper.insert(electricityUsageDaily);
+
         WaterUsageDaily waterUsageDaily = new WaterUsageDaily();
+        waterUsageDaily.setUser(user);
+        waterUsageDaily.setTimestamp(data.getTimestamp());
+        waterUsageDaily.setWaterUsage(Float.parseFloat(dataMap.get("waterUsage").toString()));
+        waterUsageDaily.setToilet(toilet);
+
+
         PaperUsageDaily paperUsageDaily = new PaperUsageDaily();
+        paperUsageDaily.setPaperUsage(Float.parseFloat(dataMap.get("paperUsage").toString()));
+        paperUsageDaily.setTimestamp(data.getTimestamp());
+        paperUsageDaily.setUser(user);
+        paperUsageDaily.setToilet(toilet);
     }
 
     private void handleFlowMessage(MqttMessage data) {
