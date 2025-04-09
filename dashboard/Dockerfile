@@ -2,7 +2,9 @@
 FROM node:18 AS builder
 WORKDIR /app
 COPY . .
-RUN npm install && npm run build
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install && \
+    npm run build
 
 # 运行阶段
 FROM nginx:alpine
