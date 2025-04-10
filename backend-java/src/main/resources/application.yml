@@ -1,5 +1,5 @@
 server:
-  port: 8089
+  port: 8080
 damao:
   jwt:
     adminSecretKey: damaoz
@@ -26,7 +26,6 @@ spring:
       enabled: ALWAYS # enable color print
   main:
     allow-circular-references: true
-
 
   servlet:
     multipart:
@@ -79,7 +78,6 @@ spring:
     password: 1231h5867
 
 mybatis-plus:
-
   mapper-locations: classpath*:com/damao/mapper/*.xml, classpath*:mapper/*.xml
   type-aliases-package: com.damao.pojo.entity
   configuration:
@@ -91,6 +89,3 @@ logging:
         mapper: debug
         service: info
         controller: info
-
-
-

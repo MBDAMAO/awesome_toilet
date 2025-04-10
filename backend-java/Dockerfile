@@ -1,13 +1,13 @@
 FROM openjdk:21-jdk
 
+# 复制构建文件和源代码
 COPY . /app
-
 WORKDIR /app
 
-RUN chmod +x mvnw
+RUN chmod +x mvnw && \
+    ./mvnw -s .mvn/settings.xml clean package
 
-RUN ./mvnw -s .mvn/settings.xml package
+# 暴露端口
+EXPOSE 8080
 
-EXPOSE 8081
-
-CMD ["java", "-Xmx1024m", "-jar", "/app/MainApplication/target/MainApplication-1.0.0.jar"]
+CMD ["java", "-Xmx1024m", "-jar", "/app/target/backend-1.0.0.jar"]

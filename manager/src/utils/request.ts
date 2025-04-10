@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 
 // 设置 axios 默认配置
 axios.defaults.timeout = 10000
-axios.defaults.baseURL = 'http://127.0.0.1:8089' // 修正了 baseURL 的格式
+axios.defaults.baseURL = '/api' // 修正了 baseURL 的格式
 
 // 设置请求转换函数，确保请求数据被正确转换为 JSON 格式
 axios.defaults.transformRequest = [(data) => {
