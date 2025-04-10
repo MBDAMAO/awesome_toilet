@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS Toilet
     owner       INT,
     name        VARCHAR(50),
     location    VARCHAR(20),
+    design_map  TEXT,
     status      INT,
     pits        INT,
     devices     INT,
