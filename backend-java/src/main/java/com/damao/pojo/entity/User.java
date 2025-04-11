@@ -1,7 +1,5 @@
 package com.damao.pojo.entity;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -19,6 +17,8 @@ public class User extends BaseEntity implements Serializable {
     private String name;
     private String account;
     private String email;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 }

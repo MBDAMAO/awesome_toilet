@@ -1,6 +1,8 @@
 package com.damao.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -20,5 +22,6 @@ public class Pit extends BaseEntity implements Serializable {
     private String coordinates;
     private String description;
     private Long status;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 }

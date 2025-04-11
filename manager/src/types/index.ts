@@ -24,8 +24,10 @@ export interface ToiletItem {
   id: number
   name: string
   location: string
-  status: string
+  status: number
   create_time: string
+  update_time: string
+  design_map: string
   pits: number
   devices: number
   description: string

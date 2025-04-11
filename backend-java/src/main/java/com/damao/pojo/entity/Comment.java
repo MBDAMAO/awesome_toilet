@@ -1,6 +1,8 @@
 package com.damao.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -19,5 +21,6 @@ public class Comment extends BaseEntity implements Serializable {
     private Long area;
     private String suggestion;
     private Integer type;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 }

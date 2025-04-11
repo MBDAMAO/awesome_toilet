@@ -1,6 +1,8 @@
 package com.damao.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -18,5 +20,6 @@ public class Message extends BaseEntity implements Serializable {
     private Long user;
     private String message;
     private Boolean isRead;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 }

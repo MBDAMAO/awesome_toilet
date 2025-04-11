@@ -13,9 +13,49 @@ export function getToiletList(params: {
   })
 }
 
+export function addToilet(data: any): Promise<Result<any>> {
+  return request({
+    url: '/toilet/new',
+    method: 'post',
+    data,
+  })
+}
+
+export function updateToilet(data: any): Promise<Result<any>> {
+  return request({
+    url: '/toilet/update',
+    method: 'post',
+    data,
+  })
+}
+
+export function saveToilet(data: any): Promise<Result<any>> {
+  return request({
+    url: '/toilet/save',
+    method: 'post',
+    data,
+  })
+}
+
+export function getToiletDetail(id: string): Promise<Result<any>> {
+  return request({
+    url: '/toilet/info',
+    method: 'get',
+    params: { id },
+  })
+}
+
 export function deleteToilet(id: string): Promise<Result<any>> {
   return request({
-    url: '/toilet/list',
+    url: '/toilet/delete',
+    method: 'get',
+    params: { id },
+  })
+}
+
+export function getAllToiletList(): Promise<Result<any>> {
+  return request({
+    url: '/toilet/all',
     method: 'get',
   })
 }

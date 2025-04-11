@@ -10,6 +10,10 @@ import com.damao.pojo.entity.Toilet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/toilet")
 public class ToiletController {
@@ -25,25 +29,55 @@ public class ToiletController {
     }
 
     @GetMapping("/delete")
-    public Result<?> deleteToilet(Integer id) {
+    public Result<?> deleteToilet(Long id) {
+        // 无实体依赖关系才能删除
+        Long device = toiletMapper.checkDependence(id);
+        if (device != 0) {
+            return Result.error("该厕所下存在未删除的设备，请先删除相关设备！");
+        }
         toiletMapper.deleteById(id);
         return Result.success();
     }
 
     @PostMapping("/update")
-    public Result<?> updateToilet(Toilet toilet) {
+    public Result<?> updateToilet(@RequestBody Toilet toilet) {
+
         toiletMapper.updateById(toilet);
         return Result.success();
     }
 
+    @PostMapping("save")
+    public Result<?> saveToilet(@RequestBody Toilet toilet){
+        Long uid = BaseContext.getCurrentUid();
+        toilet.setOwner(uid);
+        toiletMapper.insertOrUpdate(toilet);
+        return Result.success();
+    }
+
     @PostMapping("/new")
-    public Result<?> addToilet(Toilet toilet) {
+    public Result<?> addToilet(@RequestBody Toilet toilet) {
         toiletMapper.insert(toilet);
         return Result.success();
     }
 
+    @GetMapping("/all")
+    public Result<Object> getAllToiletInfo() {
+        Long uid = BaseContext.getCurrentUid();
+        QueryWrapper<Toilet> wrapper = new QueryWrapper<>();
+        wrapper.eq("owner", uid);
+        List<Toilet> allToilets = toiletMapper.selectList(wrapper);
+        List<Map<String, Object>> res = allToilets.stream().map(element -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", element.getId());
+            map.put("name", element.getName());
+            return map;
+        }).toList();
+        return Result.success(res);
+    }
+
+
     @GetMapping("/list")
-    public Result<PageResult<Toilet>> getDeviceList(
+    public Result<PageResult<Toilet>> getToiletList(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) Integer status,

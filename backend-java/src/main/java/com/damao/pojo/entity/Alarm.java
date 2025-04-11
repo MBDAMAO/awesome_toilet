@@ -1,6 +1,8 @@
 package com.damao.pojo.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -19,5 +21,6 @@ public class Alarm extends BaseEntity implements Serializable {
     private Long toilet;
     private Long device;
     private String message;
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 }

@@ -27,7 +27,6 @@ public class AuthorizeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         String token = request.getHeader(AUTHORIZE_TOKEN);
-        System.out.println("token:" + token);
         if (StringUtils.isEmpty(token)) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
@@ -41,7 +40,7 @@ public class AuthorizeInterceptor implements HandlerInterceptor {
             BaseContext.setCurrentUid(Long.valueOf(userId));
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
