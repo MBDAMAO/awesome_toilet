@@ -77,14 +77,12 @@ axios.interceptors.response.use(
       errorMessage = error.message
     }
 
-    // 显示错误消息
     ElMessage({
       showClose: true,
       message: errorMessage,
       type: 'error',
     })
 
-    // 返回 Promise.reject，将错误传递给调用者
     return Promise.reject(error)
   }
 )

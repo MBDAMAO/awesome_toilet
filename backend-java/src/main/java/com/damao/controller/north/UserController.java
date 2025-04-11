@@ -40,6 +40,11 @@ public class UserController {
         return Result.success(user);
     }
 
+    @GetMapping("/verify")
+    public Result<?> verifyToken() {
+        return Result.success();
+    }
+
     @PostMapping("/update")
     public Result<?> updateUserInfo(Integer id, String name, String password) {
         return null;

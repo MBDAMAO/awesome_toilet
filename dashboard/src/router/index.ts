@@ -7,6 +7,10 @@ const router = createRouter({
       redirect: '/page/dashboard',
     },
     {
+      path: '/sso-callback',
+      redirect: '/page/sso-callback',
+    },
+    {
       path: '/root',
       component: () => import('@/views/headerSidePage/index.vue'),
       children: [
@@ -35,6 +39,11 @@ const router = createRouter({
           path: 'questionnaire',
           name: 'questionnaire',
           component: () => import('@/views/questionnaire/index.vue'),
+        },
+        {
+          path: 'sso-callback',
+          name: 'sso-callback',
+          component: () => import('@/views/SsoCallback/index.vue'),
         },
         {
           path: 'dashboard',
