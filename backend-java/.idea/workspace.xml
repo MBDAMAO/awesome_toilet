@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48cc2b37-7636-44b8-a769-390a00d3981e" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/damao/controller/north/DataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/damao/controller/north/DataController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,6 +126,7 @@
       <workItem from="1743226489731" duration="22900000" />
       <workItem from="1743310344367" duration="20371000" />
       <workItem from="1743394761176" duration="13462000" />
+      <workItem from="1744362007325" duration="4232000" />
     </task>
     <servers />
   </component>
