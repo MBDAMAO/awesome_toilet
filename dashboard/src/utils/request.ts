@@ -1,64 +1,90 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-axios.defaults.timeout = 10000 // 超时时间
-// https://apifoxmock.com/m2/3898618-3533065-default/190434496?apifoxApiId=190434496
-axios.defaults.baseURL = '/api'
-// axios.defaults.baseURL = "https://apifoxmock.com/m1/3898618-3533065-default";
-// 数据格式转换
-axios.defaults.transformRequest = function (data) {
-  data = JSON.stringify(data)
-  return data
-}
 
-// 路由请求拦截
+// 设置 axios 默认配置
+axios.defaults.timeout = 10000
+axios.defaults.baseURL = '/api' // 修正了 baseURL 的格式
+
+// 设置请求转换函数，确保请求数据被正确转换为 JSON 格式
+axios.defaults.transformRequest = [(data) => {
+  return JSON.stringify(data)
+}]
+
+// 请求拦截器
 axios.interceptors.request.use(
   (config) => {
+    // 设置请求头的 Content-Type
     config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+
+    // 从 localStorage 中获取 token 并添加到请求头中
     try {
-      // 设置前端token
       const token = localStorage.getItem('token')
-      if (token && token !== '') {
+      if (token) {
         config.headers['token'] = token
       }
-    } catch {
-      console.log('error put token')
+    } catch (error) {
+      console.log('Error retrieving token:', error)
     }
+
     return config
   },
   (error) => {
-    return Promise.reject(error.response)
-  },
+    // 处理请求错误
+    console.log('Request error:', error)
+    return Promise.reject(error)
+  }
 )
-// 路由响应拦截
+
+// 响应拦截器
 axios.interceptors.response.use(
   (response) => {
-    if (response.data.code === 0) {
-      alert(response.data.msg)
-    } else {
-      return response.data
-    }
+    // 如果响应成功且数据存在，直接返回数据
+    return response.data || response
   },
   (error) => {
+    // 处理响应错误
+    let errorMessage = '请求失败，请稍后再试'
+
     if (error.response) {
+      // 服务器返回的错误状态码
       switch (error.response.status) {
         case 400:
-          error.message = `错误请求`
+          errorMessage = '错误请求'
           break
         case 401:
-          error.message = `未授权，请重新登录`
+          errorMessage = '未授权，请重新登录'
+          // 清除本地存储的 token 并跳转到登录页面
+          localStorage.removeItem('token')
+          window.location.href = '/page/login'
           break
+        case 403:
+          errorMessage = '拒绝访问'
+          break
+        case 404:
+          errorMessage = '请求资源未找到'
+          break
+        case 500:
+          errorMessage = '服务器内部错误'
+          break
+        default:
+          errorMessage = error.response.data.message || error.response.statusText
       }
     } else if (error.request) {
-      console.log(error.request)
+      // 请求已发出但没有收到响应
+      errorMessage = '请求超时或网络错误'
     } else {
-      console.log(error.message)
+      // 其他错误
+      errorMessage = error.message
     }
+
     ElMessage({
       showClose: true,
-      message: error.message,
+      message: errorMessage,
       type: 'error',
     })
-    return Promise.reject(error.response) // 返回接口返回的错误信息
-  },
+
+    return Promise.reject(error)
+  }
 )
+
 export default axios

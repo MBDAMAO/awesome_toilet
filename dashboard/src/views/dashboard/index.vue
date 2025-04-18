@@ -137,6 +137,7 @@ import GaugeChart from '@/components/GaugeChart.vue'
 import RankItem from '@/components/RankItem.vue'
 import AlertItem from '@/components/AlertItem.vue'
 import ToiletDetail from '@/components/ToiletDetail.vue'
+import { getHomeData } from '@/apis/data'
 
 // 暗黑模式
 const isDark = ref(false)
@@ -310,6 +311,9 @@ const locateMe = () => {
 onMounted(() => {
   updateTime()
   initMap()
+  getHomeData().then(res => {
+    console.log(res)
+  })
   setInterval(updateTime, 1000)
 })
 

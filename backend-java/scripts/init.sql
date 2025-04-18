@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS User_Auth
 CREATE TABLE IF NOT EXISTS Login_History
 (
     id         INT AUTO_INCREMENT PRIMARY KEY,
+    user        INT         NOT NULL,
     ip_address VARCHAR(20) NOT NULL,
     location   VARCHAR(50) NULL,
     platform   VARCHAR(50) NULL,
@@ -242,9 +243,9 @@ CREATE TABLE IF NOT EXISTS Traffic
     toilet         INT NOT NULL,
     pit            INT NULL,
     device         INT NULL,
-    TotalVisitors  INT,
-    MaleVisitors   INT,
-    FemaleVisitors INT,
+    total_visitors  INT,
+    male_visitors   INT,
+    female_visitors INT,
     Timestamp      TIMESTAMP
 );
 
@@ -256,8 +257,8 @@ CREATE TABLE IF NOT EXISTS Traffic_minutely_stats
     toilet         INT NOT NULL,
     pit            INT NULL,
     device         INT NULL,
-    MaleVisitors   INT,
-    FemaleVisitors INT,
+    male_visitors   INT,
+    female_visitors INT,
     Timestamp      TIMESTAMP
 );
 
@@ -269,8 +270,8 @@ CREATE TABLE IF NOT EXISTS Traffic_hourly_stats
     toilet         INT NOT NULL,
     pit            INT NULL,
     device         INT NULL,
-    MaleVisitors   INT,
-    FemaleVisitors INT,
+    male_visitors   INT,
+    female_visitors INT,
     Timestamp      TIMESTAMP
 );
 
@@ -282,8 +283,8 @@ CREATE TABLE IF NOT EXISTS Traffic_daily_stats
     toilet         INT NOT NULL,
     pit            INT NULL,
     device         INT NULL,
-    MaleVisitors   INT,
-    FemaleVisitors INT,
+    male_visitors   INT,
+    female_visitors INT,
     Timestamp      TIMESTAMP
 );
 
@@ -295,8 +296,8 @@ CREATE TABLE IF NOT EXISTS Traffic_weekly_stats
     toilet         INT NOT NULL,
     pit            INT NULL,
     device         INT NULL,
-    MaleVisitors   INT,
-    FemaleVisitors INT,
+    male_visitors   INT,
+    female_visitors INT,
     Timestamp      TIMESTAMP
 );
 
@@ -308,8 +309,8 @@ CREATE TABLE IF NOT EXISTS Traffic_monthly_stats
     toilet         INT NOT NULL,
     pit            INT NULL,
     device         INT NULL,
-    MaleVisitors   INT,
-    FemaleVisitors INT,
+    male_visitors   INT,
+    female_visitors INT,
     Timestamp      TIMESTAMP
 );
 

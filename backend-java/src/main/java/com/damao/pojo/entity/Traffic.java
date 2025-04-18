@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class Traffic extends BaseEntity implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
+    private Long user;
     private Long toilet;
     private Long pit;
     private Long device;

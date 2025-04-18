@@ -3,8 +3,8 @@ package com.damao.mqtt;
 import com.alibaba.fastjson2.JSON;
 import com.damao.mapper.DeviceMapper;
 import com.damao.mapper.EnvDataMapper;
+import com.damao.mapper.TrafficMapper;
 import com.damao.mapper.stat.ElectricityUsageDailyMapper;
-import com.damao.pojo.entity.Alarm;
 import com.damao.pojo.entity.Device;
 import com.damao.pojo.entity.EnvironmentData;
 import com.damao.pojo.entity.Traffic;
@@ -13,7 +13,6 @@ import com.damao.pojo.entity.stat.PaperUsageDaily;
 import com.damao.pojo.entity.stat.WaterUsageDaily;
 import com.damao.service.AlarmService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -34,6 +33,8 @@ public class MqttMessageService {
 
     @Autowired
     private AlarmService alarmService;
+    @Autowired
+    private TrafficMapper trafficMapper;
 
     /**
      * {
@@ -134,5 +135,13 @@ public class MqttMessageService {
         Long toilet = device.getToilet();
 
         Traffic traffic = new Traffic();
+        traffic.setDevice(deviceId);
+        traffic.setTimestamp(data.getTimestamp());
+        traffic.setUser(user);
+        traffic.setToilet(toilet);
+        traffic.setFemaleVisitors(Integer.parseInt(data.getData().get("femaleVisitors").toString()));
+        traffic.setMaleVisitors(Integer.parseInt(data.getData().get("maleVisitors").toString()));
+        trafficMapper.insert(traffic);
+
     }
 }

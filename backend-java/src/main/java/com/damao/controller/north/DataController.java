@@ -1,12 +1,23 @@
 package com.damao.controller.north;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.damao.common.context.BaseContext;
 import com.damao.common.result.Result;
 import com.damao.mapper.EnvDataMapper;
+import com.damao.mapper.LoginHistoryMapper;
+import com.damao.mapper.UserMapper;
+import com.damao.mapper.stat.ElectricityUsageDailyMapper;
+import com.damao.mapper.stat.TrafficDailyStatsMapper;
+import com.damao.pojo.entity.LoginHistory;
+import com.damao.pojo.entity.User;
+import com.damao.pojo.entity.stat.ElectricityUsageDaily;
+import com.damao.pojo.entity.stat.TrafficDailyStats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +30,53 @@ public class DataController {
     @Autowired
     EnvDataMapper envDataMapper;
 
+    @Autowired
+    LoginHistoryMapper loginHistoryMapper;
+
+    @Autowired
+    TrafficDailyStatsMapper trafficDailyStatsMapper;
+
+    @Autowired
+    ElectricityUsageDailyMapper electricityUsageDailyMapper;
+
+    @Autowired
+    UserMapper userMapper;
+
     @GetMapping("/dashboard")
     public Result<?> getDashboardData() {
-        return null;
+        Long uid = BaseContext.getCurrentUid();
+        // 最近一次登录时间
+        QueryWrapper<LoginHistory> queryWrapper = new QueryWrapper<LoginHistory>();
+        queryWrapper.eq("user", uid)
+                .orderByDesc("time")
+                .last("limit 1");
+        List<LoginHistory> list = loginHistoryMapper.selectList(queryWrapper);
+
+        User user = userMapper.selectById(uid);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("loginHistory", list);
+        res.put("user", user);
+        // 今天该用户下所有的厕所人流数据
+        LocalDate today = LocalDate.now();
+        QueryWrapper<TrafficDailyStats> trafficQueryWrapper = new QueryWrapper<TrafficDailyStats>();
+        trafficQueryWrapper.eq("user", uid)
+                .apply("DATE(timestamp) = DATE('" + today + "')")
+                .orderByDesc("timestamp")
+                .last("LIMIT 1");
+        List<TrafficDailyStats> trafficDailyStats = trafficDailyStatsMapper.selectList(trafficQueryWrapper);
+
+        // 今天该用户下所有的用电量数据
+        QueryWrapper<ElectricityUsageDaily> electricityQueryWrapper = new QueryWrapper<ElectricityUsageDaily>();
+        electricityQueryWrapper.eq("user", uid)
+               .apply("DATE(timestamp) = DATE('" + today + "')")
+               .orderByDesc("timestamp")
+               .last("LIMIT 1");
+        List<ElectricityUsageDaily> electricityUsageDaily = electricityUsageDailyMapper.selectList(electricityQueryWrapper);
+
+        // 今天该用户下所有的用水量数据 TODO
+
+        return Result.success(res);
     }
 
     @GetMapping("/overview")

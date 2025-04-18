@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class LoginHistory extends BaseEntity implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
+    private Long user;
     private String ipAddress;
     private String location;
     private String platform;
