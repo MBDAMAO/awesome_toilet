@@ -22,7 +22,7 @@
       <el-table :data="tableData" border style="width: 100%" max-height="500" v-loading="loading" stripe>
         <el-table-column prop="id" label="唯一ID" width="120" fixed />
         <el-table-column prop="name" label="名称" width="150" />
-        <el-table-column prop="location" label="位置" width="180" show-overflow-tooltip />
+
         <el-table-column prop="status" label="状态" width="120">
           <template #default="scope">
             <el-tag :type="getStatusTagType(scope.row.status)" size="small">
@@ -32,7 +32,8 @@
         </el-table-column>
         <el-table-column prop="pits" label="坑位数量" width="100" align="center" />
         <el-table-column prop="devices" label="设备数量" width="100" align="center" />
-        <el-table-column prop="description" label="备注" show-overflow-tooltip width="200" />
+        <el-table-column prop="description" label="备注" show-overflow-tooltip width="200" /><el-table-column
+          prop="location" label="位置" width="180" show-overflow-tooltip />
         <el-table-column prop="create_time" label="添加时间" width="180" />
         <el-table-column prop="update_time" label="修改时间" width="180" />
         <el-table-column label="操作" width="180" fixed="right">
@@ -60,7 +61,7 @@
   </Container>
 
   <!-- 详情弹窗 -->
-  <el-dialog v-model="detailDialogVisible" :title="'厕所详情 - ' + currentToilet?.name" width="50%" destroy-on-close>
+  <el-dialog v-model="detailDialogVisible" :title="'厕所详情 - ' + currentToilet?.name" width="70%" destroy-on-close>
     <ToiletDetail :toilet="currentToilet" v-if="detailDialogVisible" />
     <template #footer>
       <el-button @click="detailDialogVisible = false">关闭</el-button>

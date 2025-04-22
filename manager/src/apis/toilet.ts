@@ -37,7 +37,7 @@ export function saveToilet(data: any): Promise<Result<any>> {
   })
 }
 
-export function getToiletDetail(id: string): Promise<Result<any>> {
+export function getToiletInfo(id: string): Promise<Result<any>> {
   return request({
     url: '/toilet/info',
     method: 'get',
@@ -56,6 +56,13 @@ export function deleteToilet(id: string): Promise<Result<any>> {
 export function getAllToiletList(): Promise<Result<any>> {
   return request({
     url: '/toilet/all',
+    method: 'get',
+  })
+}
+
+export function getToiletDetail(id: string): Promise<Result<any>> {
+  return request({
+    url: '/toilet/detail?id=' + id,
     method: 'get',
   })
 }

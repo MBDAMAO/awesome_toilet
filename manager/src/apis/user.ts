@@ -12,6 +12,20 @@ export function login(account: string, password: string): Promise<Result<unknown
   })
 }
 
+export function self(): Promise<Result<unknown>> {
+  return request({
+    url: '/user/self',
+    method: 'get',
+  })
+}
+
+export function updateSelf(user: object): Promise<Result<unknown>> {
+  return request({
+    url: '/user/update',
+    method: 'post',
+    data: user,
+  })
+}
 
 export async function verifyToken(token: string) {
   const response = await fetch('/api/user/verify', {

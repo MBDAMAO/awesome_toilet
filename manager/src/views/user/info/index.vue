@@ -7,11 +7,14 @@
           <el-avatar :size="80" :src="user.avatar" />
           <h3>{{ user.name }}</h3>
           <p>{{ user.email }}</p>
+          <p>{{ user.description }}</p>
         </div>
         <el-divider />
-        <p><strong>注册时间：</strong>{{ user.registeredAt }}</p>
+        <p><strong>注册时间：</strong>{{ user.create_time }}</p>
+        <p><strong>更新时间：</strong>{{ user.update_time }}</p>
         <p><strong>手机号：</strong>{{ user.phone }}</p>
-        <p><strong>所属企业：</strong>{{ user.company }}</p>
+        <p><strong>生日：</strong>{{ user.birthday }}</p>
+        <p><strong>角色：</strong>{{ user.role }}</p>
       </el-card>
     </el-col>
 
@@ -31,8 +34,12 @@
           <el-form-item label="手机号" prop="phone">
             <el-input v-model="form.phone" />
           </el-form-item>
-          <el-form-item label="首页链接" prop="homeUrl">
-            <el-input v-model="form.homeUrl" />
+          <el-form-item label="生日" prop="birthday">
+            <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期" style="width: 100%"
+              value-format="YYYY-MM-DD" />
+          </el-form-item>
+          <el-form-item label="简介" prop="description">
+            <el-input v-model="form.description" type="textarea" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -45,36 +52,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { self, updateSelf } from '@/apis/user'
 
 interface User {
   name: string
   email: string
   phone: string
   avatar: string
-  registeredAt: string
-  company: string
-  homeUrl: string
+  create_time: string
 }
 
 const user = ref<User>({
-  name: '超级管理员',
-  email: 'admin@example.com',
-  phone: '17356777777',
-  avatar: 'https://example.com/avatar.jpg',
-  registeredAt: '2020-04-10 09:40:33',
-  company: '杭州诚聚',
-  homeUrl: 'http://www.baidu.com'
+  name: '',
+  email: '',
+  phone: '',
+  avatar: '',
+  create_time: '',
 })
 
-const form = ref({ ...user.value })
+const form = ref({})
 
 const rules = {
   name: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
   email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
   phone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
-  homeUrl: [{ required: true, message: '请输入首页链接', trigger: 'blur' }]
 }
 
 const formRef = ref()
@@ -82,7 +85,16 @@ const formRef = ref()
 const onSubmit = () => {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      ElMessage.success('保存成功')
+      updateSelf(form.value).then(res => {
+        // user.value = res.data;
+        // console.log(res)
+        if (res.status == 200) {
+          ElMessage.success('保存成功')
+        } else {
+          ElMessage.error('发生错误')
+        }
+      })
+
     } else {
       ElMessage.error('请完善表单信息')
     }
@@ -92,6 +104,17 @@ const onSubmit = () => {
 const onReset = () => {
   form.value = { ...user.value }
 }
+onMounted(() => {
+  self().then(res => {
+    user.value = res.data;
+
+    form.value.name = res.data.name
+    form.value.email = res.data.email
+    form.value.description = res.data.description
+    form.value.phone = res.data.phone
+    form.value.birthday = res.data.birthday
+  })
+})
 </script>
 
 <style scoped>

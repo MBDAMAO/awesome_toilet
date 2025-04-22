@@ -1,5 +1,6 @@
 package com.damao.controller.north;
 
+import com.damao.common.context.BaseContext;
 import com.damao.common.properties.JwtProperties;
 import com.damao.common.result.Result;
 import com.damao.common.utils.IpUtils;
@@ -49,14 +50,24 @@ public class UserController {
         return Result.success(user);
     }
 
+    @GetMapping("/self")
+    public Result<?> getSelfUserInfo() {
+        Long id = BaseContext.getCurrentUid();
+        User user = userMapper.selectById(id);
+        return Result.success(user);
+    }
+
     @GetMapping("/verify")
     public Result<?> verifyToken() {
         return Result.success();
     }
 
     @PostMapping("/update")
-    public Result<?> updateUserInfo(Integer id, String name, String password) {
-        return null;
+    public Result<?> updateUserInfo(@RequestBody User user) {
+        Long id = BaseContext.getCurrentUid();
+        user.setUid(id);
+        userMapper.updateById(user);
+        return Result.success();
     }
 
     @PostMapping("/login")
