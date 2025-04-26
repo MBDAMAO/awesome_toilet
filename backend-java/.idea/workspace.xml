@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48cc2b37-7636-44b8-a769-390a00d3981e" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fcd293e5-3d56-47b1-898e-8723a5a938a0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fcd293e5-3d56-47b1-898e-8723a5a938a0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../manager/src/views/toilet/components/ToiletDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../manager/src/views/toilet/components/ToiletDetail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../manager/src/views/toilet_editor/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../manager/src/views/toilet_editor/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +91,9 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.damao.pojo.dto" />
@@ -127,6 +133,9 @@
       <workItem from="1743310344367" duration="20371000" />
       <workItem from="1743394761176" duration="13462000" />
       <workItem from="1744362007325" duration="4232000" />
+      <workItem from="1745319962759" duration="5326000" />
+      <workItem from="1745494719460" duration="2909000" />
+      <workItem from="1745676216137" duration="1487000" />
     </task>
     <servers />
   </component>

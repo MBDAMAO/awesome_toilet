@@ -10,10 +10,10 @@
     <!-- 内容区域 -->
     <template v-else>
       <div class="flex flex-row">
-        <div class="h-auto w-40">
+        <div class="h-auto w-40 mr-2">
           <MapView :x="location[0]" :y="location[1]" />
         </div>
-        <div class="h-auto w-52">
+        <div class="h-auto w-52 mr-2 hover:cursor-pointer">
           <LayoutPreview :layoutData="toilet.design_map" />
         </div>
         <el-descriptions :column="2" border>
@@ -77,20 +77,20 @@
 import { onMounted, reactive, ref } from 'vue'
 import { Loading } from '@element-plus/icons-vue'
 import type { ToiletItem } from '@/types'
-import LayoutPreview from './LayoutPreview.vue';
-import MapView from './MapView.vue';
-import { getToiletDetail } from '@/apis/toilet';
+import LayoutPreview from './LayoutPreview.vue'
+import MapView from './MapView.vue'
+import { getToiletDetail } from '@/apis/toilet'
 
 const props = defineProps<{
   toilet: ToiletItem
 }>()
 
-const location = props.toilet.location.split(',').map(Number);
+const location = props.toilet.location.split(',').map(Number)
 const statusNameMap = {
   '1': '正常',
   '2': '异常',
   '3': '维护中',
-  '4': '关闭'
+  '4': '关闭',
 }
 
 const devices = reactive([])
@@ -103,7 +103,7 @@ const getStatusTagType = (status: string) => {
     '1': 'success',
     '2': 'danger',
     '3': 'warning',
-    '4': 'info'
+    '4': 'info',
   }
   return statusMap[status] || ''
 }
@@ -113,19 +113,21 @@ const getDeviceStatusTagType = (status: string) => {
     '1': 'success',
     '2': 'danger',
     '3': 'warning',
-    '4': 'info'
+    '4': 'info',
   }
   return statusMap[status] || ''
 }
 
 onMounted(() => {
-  getToiletDetail(props.toilet.id).then((res) => {
-    devices.push(...res.data.devices)
-    pits.push(...res.data.pits)
-    toilet.value = res.data.toilet
-  }).finally(() => {
-    loading.value = false // 无论成功失败都关闭加载
-  })
+  getToiletDetail(props.toilet.id)
+    .then((res) => {
+      devices.push(...res.data.devices)
+      pits.push(...res.data.pits)
+      toilet.value = res.data.toilet
+    })
+    .finally(() => {
+      loading.value = false // 无论成功失败都关闭加载
+    })
 })
 </script>
 
