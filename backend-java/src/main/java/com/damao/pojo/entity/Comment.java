@@ -19,6 +19,7 @@ public class Comment extends BaseEntity implements Serializable {
     private Long id;
     private Long toilet;
     private Long area;
+    private String username;
     private String suggestion;
     private Integer type;
     @TableField(fill = FieldFill.INSERT)

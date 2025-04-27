@@ -13,7 +13,7 @@
         <div class="h-auto w-40 mr-2">
           <MapView :x="location[0]" :y="location[1]" />
         </div>
-        <div class="h-auto w-52 mr-2 hover:cursor-pointer">
+        <div class="h-auto w-52 mr-2 hover:cursor-pointer" @click="goToEditor">
           <LayoutPreview :layoutData="toilet.design_map" />
         </div>
         <el-descriptions :column="2" border>
@@ -91,6 +91,14 @@ const statusNameMap = {
   '2': '异常',
   '3': '维护中',
   '4': '关闭',
+}
+
+function goToEditor() {
+  const url = new URL(window.location.href)
+  url.pathname = '/root/editor'
+  url.searchParams.set('id', props.toilet.id)
+  // jump to the editor page
+  window.location = url.href
 }
 
 const devices = reactive([])

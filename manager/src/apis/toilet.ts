@@ -13,6 +13,13 @@ export function getToiletList(params: {
   })
 }
 
+export function getToiletDesignMapById(id: string): Promise<Result<any>> {
+  return request({
+    url: '/toilet/design_map?id=' + id,
+    method: 'get',
+  })
+}
+
 export function addToilet(data: any): Promise<Result<any>> {
   return request({
     url: '/toilet/new',

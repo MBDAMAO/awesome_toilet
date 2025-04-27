@@ -38,6 +38,15 @@ public class ToiletController {
         return Result.success(toilet);
     }
 
+    @GetMapping("/design_map")
+    public Result<?> getToiletDesign(@RequestParam Integer id) {
+        Toilet toilet = toiletMapper.selectById(id);
+        String design = toilet.getDesignMap();
+        Map<String, Object> map = new HashMap<>();
+        map.put("design_map", design);
+        return Result.success(map);
+    }
+
     @GetMapping("/detail")
     public Result<?> getToiletDetail(@RequestParam Integer id) {
         Toilet toilet = toiletMapper.selectById(id);

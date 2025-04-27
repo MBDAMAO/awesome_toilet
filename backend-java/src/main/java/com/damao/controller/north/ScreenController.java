@@ -116,6 +116,7 @@ public class ScreenController {
         map.put("environmentData", envDataFuture.join());
         map.put("trafficData", trafficFuture.join());
         map.put("alarms", alarmsFuture.join());
+        map.put("occupy", null);
 
         return Result.success(map);
     }

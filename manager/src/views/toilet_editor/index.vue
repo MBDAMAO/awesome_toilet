@@ -1,7 +1,8 @@
-<script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import Preview from './preview.vue'
+import { getAllToiletList, getToiletDesignMapById, updateToilet } from '@/apis/toilet'
+import { ElMessage } from 'element-plus'
 
 const gridSize = 20
 const elements = ref([])
@@ -11,6 +12,27 @@ const draggingElement = ref(null)
 const resizingElement = ref(null)
 const initialSize = ref({ width: 0, height: 0 })
 const startPosition = ref({ x: 0, y: 0 })
+const allToilets = ref([])
+const value = ref()
+
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search)
+  const id = urlParams.get('id')
+
+  if (id) {
+    getToiletDesignMapById(id).then((response) => {
+      const layoutData = response.data.design_map
+      elements.value = JSON.parse(layoutData)
+    })
+  }
+  getAllToiletList().then((response) => {
+    const toilets = response.data
+    allToilets.value.push(...toilets)
+    if (id) {
+      value.value = Number(id)
+    }
+  })
+})
 
 const componentTypes = [
   { type: '男厕所', width: 100, height: 120, backgroundColor: '#4B8CFF', fontColor: 'white' },
@@ -119,12 +141,33 @@ const uploadLayout = async () => {
     fontColor: element.fontColor, // 确保包含 fontColor 属性
   }))
   console.log('Uploading layout:', JSON.stringify(layoutData))
-  // try {
-  //   const response = await axios.post('https://your-server-url.com/upload', layoutData);
-  //   console.log('Upload successful:', response);
-  // } catch (error) {
-  //   console.error('Upload failed:', error);
-  // }
+  const id = new URLSearchParams(window.location.search).get('id')
+  if (id) {
+    await updateToilet({ id, design_map: JSON.stringify(layoutData) })
+    ElMessage({
+      type: 'success',
+      message: '户型数据上传成功！',
+    })
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '户型数据上传失败！',
+    })
+  }
+}
+
+function handleSelect(value) {
+  const selectedToilet = allToilets.value.find((toilet) => toilet.id === value)
+  if (selectedToilet) {
+    getToiletDesignMapById(selectedToilet.id).then((response) => {
+      const layoutData = response.data.design_map
+      elements.value = JSON.parse(layoutData)
+      ElMessage({
+        type: 'success',
+        message: '户型数据加载成功！' + selectedToilet.name,
+      })
+    })
+  }
 }
 </script>
 
@@ -132,6 +175,16 @@ const uploadLayout = async () => {
   <div class="w-full h-full flex" @mousemove="updatePosition" @mouseup="deselectElement">
     <!-- 左侧组件栏 -->
     <div class="w-1/5 h-full p-4 rounded-lg shadow-lg">
+      <h2 class="text-lg font-bold mb-2">选择厕所以编辑户型</h2>
+      <el-select
+        class="w-full mb-4"
+        v-model="value"
+        placeholder="Select"
+        size="large"
+        @change="handleSelect(value)"
+      >
+        <el-option v-for="item in allToilets" :key="item.id" :label="item.name" :value="item.id" />
+      </el-select>
       <h2 class="text-lg font-bold mb-2">组件</h2>
       <div
         v-for="component in componentTypes"
@@ -209,7 +262,7 @@ const uploadLayout = async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .absolute {
   position: absolute;
   user-select: none;
