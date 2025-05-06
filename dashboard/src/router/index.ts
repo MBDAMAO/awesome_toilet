@@ -11,21 +11,6 @@ const router = createRouter({
       redirect: '/page/sso-callback',
     },
     {
-      path: '/root',
-      component: () => import('@/views/headerSidePage/index.vue'),
-      children: [
-        {
-          path: '',
-          redirect: '/root/dashboard',
-        },
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: () => import('@/views/dashboard/index.vue'),
-        },
-      ],
-    },
-    {
       path: '/page',
       name: 'page',
       component: () => import('@/views/purePage/index.vue'),

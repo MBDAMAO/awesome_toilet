@@ -1,7 +1,7 @@
 <template>
-    <div class="h-[100vh] w-full">
-        <slot></slot>
-    </div>
+  <div class="h-full w-full">
+    <slot></slot>
+  </div>
 </template>
 <script setup lang='ts'>
 </script>
