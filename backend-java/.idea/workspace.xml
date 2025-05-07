@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="48cc2b37-7636-44b8-a769-390a00d3981e" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/damao/mqtt/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fcd293e5-3d56-47b1-898e-8723a5a938a0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fcd293e5-3d56-47b1-898e-8723a5a938a0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/damao/controller/north/ScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/damao/controller/north/ScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/damao/controller/north/ToiletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/damao/controller/north/ToiletController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/damao/pojo/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/damao/pojo/entity/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dashboard/src/views/toilet_room/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../dashboard/src/views/toilet_room/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../manager/src/apis/toilet.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../manager/src/apis/toilet.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../manager/src/components/side/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../manager/src/components/side/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../manager/src/views/toilet/components/ToiletDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../manager/src/views/toilet/components/ToiletDetail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../manager/src/views/toilet_editor/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../manager/src/views/toilet_editor/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +75,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.Application.executor": "Debug",
+    "Spring Boot.Application.executor": "Run",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -143,6 +135,7 @@
       <workItem from="1745494719460" duration="2909000" />
       <workItem from="1745676216137" duration="1487000" />
       <workItem from="1745725913687" duration="7061000" />
+      <workItem from="1746621383234" duration="7625000" />
     </task>
     <servers />
   </component>

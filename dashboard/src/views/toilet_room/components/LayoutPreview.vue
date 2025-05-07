@@ -46,20 +46,26 @@ watch(
       const offsetY = (viewBoxHeight - (maxY - minY) * scale) / 2
 
       // 计算所有元素的缩放后的大小和位置
-      processedElements.value = layoutData.map((element) => ({
-        ...element,
-        x: (element.x - minX) * scale + offsetX,
-        y: (element.y - minY) * scale + offsetY,
-        width: element.width * scale,
-        height: element.height * scale,
-      }))
+      processedElements.value = layoutData.map((element) => {
+        const processedElement = {
+          ...element,
+          x: (element.x - minX) * scale + offsetX,
+          y: (element.y - minY) * scale + offsetY,
+          width: element.width * scale,
+          height: element.height * scale,
+          showRedDot: ['男厕位', '女厕位'].includes(element.type), // 添加标记是否显示红点
+        }
+        return processedElement
+      })
     } catch (error) {
       console.log(error)
     }
   },
 )
 
-onMounted(() => {})
+onMounted(() => {
+  console.log(props.layoutData)
+})
 </script>
 
 <template>
@@ -90,6 +96,14 @@ onMounted(() => {})
         >
           {{ element.type }}
         </text>
+        <!-- 如果是厕所位，添加红点 -->
+        <circle
+          v-if="element.showRedDot"
+          :cx="element.x + element.width / 2"
+          :cy="element.y + element.height / 2"
+          r="10"
+          fill="green"
+        />
       </g>
     </svg>
   </div>
