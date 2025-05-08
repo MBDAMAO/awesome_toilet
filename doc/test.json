@@ -1,0 +1,11 @@
+[
+  {
+    "type": "洗手台",
+    "x": 120,
+    "y": 120,
+    "width": 50,
+    "height": 50,
+    "color": "red",
+    "font_color": "white"
+  }
+]
