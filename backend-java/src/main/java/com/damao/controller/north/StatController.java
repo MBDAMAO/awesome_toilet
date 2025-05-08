@@ -26,34 +26,27 @@ public class StatController {
         LocalDate today = LocalDate.now();
         LocalDateTime now = LocalDateTime.now();
 
-        // 今日
         LocalDateTime todayStart = today.atStartOfDay();
         LocalDateTime todayEnd = today.atTime(LocalTime.MAX);
 
-        // 昨日
         LocalDateTime yesterdayStart = todayStart.minusDays(1);
         LocalDateTime yesterdayEnd = todayEnd.minusDays(1);
 
-        // 最近七天（包含今日）
         LocalDate sevenDaysAgo = today.minusDays(6);
         LocalDateTime lastSevenDaysStart = sevenDaysAgo.atStartOfDay();
 
-        // 本周（从周一开始）
         LocalDateTime thisWeekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY)).atStartOfDay();
         LocalDateTime thisWeekEnd = now;
 
-        // 上周（从周一开始到周日结束）
         LocalDateTime lastWeekStart = thisWeekStart.minusWeeks(1);
         LocalDateTime lastWeekEnd = thisWeekStart.minusSeconds(1);
 
-        // 获取统计数据
         List<Map<String, Object>> lastSevenDaysUsage = electricityUsageMapper.getDailyElectricityUsage(lastSevenDaysStart, todayEnd);
         Float todayUsage = electricityUsageMapper.getTotalElectricityUsage(todayStart, todayEnd);
         Float yesterdayUsage = electricityUsageMapper.getTotalElectricityUsage(yesterdayStart, yesterdayEnd);
         Float thisWeekUsage = electricityUsageMapper.getTotalElectricityUsage(thisWeekStart, thisWeekEnd);
         Float lastWeekUsage = electricityUsageMapper.getTotalElectricityUsage(lastWeekStart, lastWeekEnd);
 
-        // 组织返回结果
         if (todayUsage == null) {
             todayUsage = 0F;
         }

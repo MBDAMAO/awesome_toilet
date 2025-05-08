@@ -129,7 +129,6 @@ const updateSize = (event) => {
   }
 }
 
-// 上传户型数据
 const uploadLayout = async () => {
   const layoutData = elements.value.map((element) => ({
     type: element.type,
@@ -137,10 +136,9 @@ const uploadLayout = async () => {
     y: element.y,
     width: element.width,
     height: element.height,
-    backgroundColor: element.backgroundColor, // 确保包含 backgroundColor 属性
-    fontColor: element.fontColor, // 确保包含 fontColor 属性
+    backgroundColor: element.backgroundColor,
+    fontColor: element.fontColor,
   }))
-  console.log('Uploading layout:', JSON.stringify(layoutData))
   const id = new URLSearchParams(window.location.search).get('id')
   if (id) {
     await updateToilet({ id, design_map: JSON.stringify(layoutData) })
