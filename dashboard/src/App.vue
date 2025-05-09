@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+window._AMapSecurityConfig = {
+  securityJsCode: '0ffd599e5ab5b239d14706e319275e94',
+}
 </script>
 
 <template>
